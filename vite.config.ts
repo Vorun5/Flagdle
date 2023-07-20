@@ -8,7 +8,7 @@ export default defineConfig({
     plugins: [svgr(), react(), eslint()],
     resolve: {
         alias: {
-            src: '/src',
+            lib: '/src/lib',
             components: '/src/components',
             hooks: '/src/hooks',
             styles: '/src/styles',

@@ -30,7 +30,7 @@
     flex: 0 0 auto;
     width: 100%;
     padding: 10px 0;
-    background-color: blueviolet;
+    background-color: rgb(227, 104, 59);
 }
 
 .logo__title {
@@ -48,13 +48,6 @@
     border: none;
 }
 
-.start-game {
-    background-color: rgba(0, 255, 255, 0.1);
-    border-radius: 0.5rem;
-    width: calc(100% - 2rem);
-    padding: 1rem;
-}
-
 .start-game__title {
     text-align: center;
     color: var(--text-color);
@@ -63,8 +56,8 @@
 
 .start-game__bth {
     display: block;
-    background-color: brown;
-    color: white;
+    background-color: var(--action-color);
+    color: #222;
     margin: 0 auto;
 }
 
@@ -80,6 +73,8 @@
 
 .game {
     background-color: rgba(0, 255, 255, 0.1);
+    background-color: var(--backgoround-color);
+    box-shadow: var(--box-shadow);
     border-radius: 0.5rem;
     width: calc(100% - 2rem);
     padding: 1rem;
@@ -107,8 +102,8 @@
 .game__bth {
     padding: 3px 10px 5px 10px;
     display: block;
+    height: 40px;
 }
-
 .game__bth-text {
     display: none;
 }
