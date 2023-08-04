@@ -1,0 +1,72 @@
+.game__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.game__info {
+    display: block;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.game__info b {
+    font-weight: 500;
+}
+
+.game__bth {
+    padding: 3px 10px 5px 10px;
+    display: block;
+    height: 40px;
+}
+.game__bth-text {
+    display: none;
+}
+
+.game__bth:hover .game__bth-text {
+    display: inline;
+}
+
+.game__bth:hover .game__bth-icon {
+    display: none;
+}
+
+.game__field-container {
+    position: relative;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game__field-bth {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    background-color: var(--accent-color);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.game__field-bth:hover {
+    background-color: var(--hover-accent-color);
+}
+
+.game__field-bth--disable {
+    cursor: default;
+    background-color: gray;
+}
+
+.game__field-bth--disable:hover {
+    background-color: gray;
+}
+
+.game__field {
+    width: 200px;
+}

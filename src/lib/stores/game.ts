@@ -6,7 +6,7 @@ type State = {
     guessedCountries: CountryDto[]
     unguessedСountries: CountryDto[]
     mysteriousCountry: CountryDto | null
-    gameIsOn: boolean
+    gameStatus: 'playing' | 'winner' | 'idle'
     startTime: number
     endTime: number
     lastAnswer: null | {
@@ -29,14 +29,14 @@ export const useGameStore = create<State & Action>((set) => ({
     guessedCountries: [],
     unguessedСountries: [],
     mysteriousCountry: null,
-    gameIsOn: false,
+    gameStatus: 'idle',
     startTime: 0,
     endTime: 0,
     lastAnswer: null,
     startGame: (countries) => {
         set({
             unguessedСountries: countries,
-            gameIsOn: true,
+            gameStatus: 'playing',
             startTime: new Date().getTime(),
             guessedCountries: [],
             mysteriousCountry: guessCountry(countries),
@@ -44,7 +44,7 @@ export const useGameStore = create<State & Action>((set) => ({
     },
     endGame: () => {
         set({
-            gameIsOn: false,
+            gameStatus: 'winner',
             endTime: new Date().getTime(),
         })
     },
@@ -57,10 +57,15 @@ export const useGameStore = create<State & Action>((set) => ({
                 const newUnguessedСountries = state.unguessedСountries.filter(
                     (country) => country !== state.mysteriousCountry,
                 )
+                const gameStatus = newUnguessedСountries.length !== 0 ? 'playing' : 'winner'
+                console.log(gameStatus)
+
                 return {
                     unguessedСountries: newUnguessedСountries,
                     guessedCountries: [...state.guessedCountries, state.mysteriousCountry],
                     mysteriousCountry: guessCountry(newUnguessedСountries),
+                    gameStatus: gameStatus,
+                    endTime: gameStatus === 'winner' ? new Date().getTime() : 0,
                     lastAnswer: {
                         status: 'right',
                         answer: state.mysteriousCountry,

@@ -17,7 +17,7 @@ body[data-theme='light'] {
     --text-color: #222222;
     --accent-color: #747bff;
     --hover-accent-color: #5c63e0;
-    --button-color: transition;
+    --button-color: #fff;
     --input-color: rgb(231, 231, 231);
 }
 
@@ -28,7 +28,7 @@ body[data-theme='dark'] {
     --text-color: #ffffff;
     --accent-color: #646cff;
     --hover-accent-color: #535bf2;
-    --button-color: transition;
+    --button-color: #1f1f1f;
     --input-color: rgb(44, 44, 44);
 }
 
@@ -72,6 +72,7 @@ h1 {
     font-weight: 500;
     font-family: inherit;
     background-color: var(--button-color);
+    border-color: var(--accent-color);
     cursor: pointer;
     transition: box-shadow 0.2s;
 }

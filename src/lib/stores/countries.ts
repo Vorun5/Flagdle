@@ -1,4 +1,3 @@
-import { api } from 'lib/api'
 import { CountryDto } from 'lib/dto/country-dto'
 import { create } from 'zustand'
 
@@ -20,7 +19,36 @@ export const useCountriesStore = create<State & Actions>((set) => ({
     status: 'idle',
     fetchCountries: async () => {
         try {
-            const newCountries = await api.get('all').json<CountryDto[]>()
+            const fakseCountries: CountryDto[] = [
+                {
+                    flags: {
+                        svg: 'https://flagcdn.com/as.svg',
+                    },
+                    name: {
+                        common: 'American Samoa',
+                        official: 'American Samoa',
+                    },
+                },
+                {
+                    flags: {
+                        svg: 'https://flagcdn.com/sm.svg',
+                    },
+                    name: {
+                        common: 'San Marino',
+                        official: 'Republic of San Marino',
+                    },
+                },
+                {
+                    flags: {
+                        svg: 'https://flagcdn.com/bb.svg',
+                    },
+                    name: {
+                        common: 'Barbados',
+                        official: 'Barbados',
+                    },
+                },
+            ]
+            const newCountries = fakseCountries //await api.get('all').json<CountryDto[]>()
             const commonCountryNames: string[] = []
             const officialnCountryNames: string[] = []
             for (const country of newCountries) {
