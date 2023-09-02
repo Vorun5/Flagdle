@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ANIMATION_TIME } from '../moda-layout/const'
+import { ANIMATION_TIME } from '../modal-layout/const'
 
 export const useModalMount = ({ opened }: { opened: boolean }) => {
     const [mounted, setMounted] = useState(false)

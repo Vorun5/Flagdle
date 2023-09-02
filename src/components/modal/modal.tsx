@@ -1,7 +1,7 @@
 import { ReactNode, memo } from 'react'
 import { Portal } from 'components/portal'
 import { useModalMount } from './use-modal-mount'
-import { ModalLayout } from 'components/moda-layout/modal-layout'
+import { ModalLayout } from 'components/modal-layout/modal-layout'
 
 interface ModalProps {
     opened: boolean

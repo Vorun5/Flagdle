@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { ANIMATION_TIME } from './const'
-import styles from './modal-layout.module.css'
+import styles from './moda-layout.module.css'
 import animationStyles from './modal-layout-animation.module.css'
 
 const overlayAnimation = {
