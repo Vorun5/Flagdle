@@ -1,16 +1,16 @@
 import { useGameStore } from 'lib/stores/game'
 
 export const GameMysteriousCountry = () => {
-    const { mysteriousCountry } = useGameStore()
+  const { mysteriousCountry } = useGameStore()
 
-    if (!mysteriousCountry) return <></>
+  if (!mysteriousCountry) return <></>
 
-    return (
-        <img
-            src={mysteriousCountry.flags.svg}
-            alt="Mysterious flag"
-            draggable={false}
-            className="flag"
-        />
-    )
+  return (
+    <img
+      src={mysteriousCountry.flags.svg}
+      alt="Mysterious flag"
+      draggable={false}
+      className="flag"
+    />
+  )
 }

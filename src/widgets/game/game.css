@@ -1,72 +1,104 @@
 .game__header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 1rem;
 }
 
 .game__info {
-    display: block;
-    color: var(--text-color);
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+  display: block;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  margin-bottom: 5px;
 }
 
 .game__info b {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .game__bth {
-    padding: 3px 10px 5px 10px;
-    display: block;
-    height: 40px;
+  padding: 0px;
+  display: block;
+  height: 32px;
+  width: 32px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
 }
+
 .game__bth-text {
-    display: none;
+  display: none;
 }
 
 .game__bth:hover .game__bth-text {
-    display: inline;
+  display: inline;
 }
 
 .game__bth:hover .game__bth-icon {
-    display: none;
+  display: none;
 }
 
 .game__field-container {
-    position: relative;
-    margin: 1rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game__field-bth {
-    margin-left: 0.5rem;
-    cursor: pointer;
-    background-color: var(--accent-color);
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .game__field-bth:hover {
-    background-color: var(--hover-accent-color);
+  background-color: var(--hover-accent-color);
 }
 
 .game__field-bth--disable {
-    cursor: default;
-    background-color: gray;
+  cursor: default;
+  background-color: gray;
 }
 
 .game__field-bth--disable:hover {
-    background-color: gray;
+  background-color: gray;
 }
 
 .game__field {
-    width: 200px;
+  width: 200px;
+}
+
+.game-end-modal {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.game-end-modal__title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.game-end-modal__description {
+  padding: 1rem 0 2rem 0;
+}
+
+.game-end-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 1rem;
+}
+
+.game-end-modal__cancel-bth {
+  background-color: var(--action-color);
 }

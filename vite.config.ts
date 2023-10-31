@@ -5,16 +5,16 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [svgr(), react(), eslint()],
-    resolve: {
-        alias: {
-            lib: '/src/lib',
-            components: '/src/components',
-            hooks: '/src/hooks',
-            styles: '/src/styles',
-            assets: '/src/assets',
-            widgets: '/src/widgets',
-            pages: '/src/pages',
-        },
+  plugins: [svgr(), react(), eslint()],
+  resolve: {
+    alias: {
+      lib: '/src/lib',
+      components: '/src/components',
+      hooks: '/src/hooks',
+      styles: '/src/styles',
+      assets: '/src/assets',
+      widgets: '/src/widgets',
+      pages: '/src/pages',
     },
+  },
 })

@@ -7,18 +7,18 @@ import { GameMysteriousCountry } from './ui/game-mysterious-country'
 import './game.css'
 
 export const Game = () => {
-    return (
-        <div className="box">
-            <div className="game__header">
-                <div>
-                    <GameStopwatch />
-                    <GameScore />
-                </div>
-                <GameEndBth />
-            </div>
-            <GameMysteriousCountry />
-            <GameField />
-            <GameLastAnswer />
+  return (
+    <div className="box">
+      <div className="game__header">
+        <div>
+          <GameStopwatch />
+          <GameScore />
         </div>
-    )
+        <GameEndBth />
+      </div>
+      <GameMysteriousCountry />
+      <GameField />
+      <GameLastAnswer />
+    </div>
+  )
 }
