@@ -1,11 +1,10 @@
 import { ThemeSwitcher } from 'components/theme-switcher'
+import 'styles/header.css'
 
 export const Header = () => {
   return (
     <header className="header">
-      <div className="header__logo">
-        <h1 className="logo__title">Flagdle</h1>
-      </div>
+      <h1 className="logo__title">Flagdle</h1>
       <div className="header__setting">
         <ThemeSwitcher />
       </div>

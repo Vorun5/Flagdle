@@ -1,0 +1,25 @@
+.footer {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.created-with-love {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.created-with-love__creator {
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.support-project {
+  color: var(--accent-color);
+  font-weight: 500;
+}

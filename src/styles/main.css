@@ -18,36 +18,6 @@
   width: 100%;
 }
 
-.header {
-  flex: 0 0 auto;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer {
-  flex: 0 0 auto;
-  width: 100%;
-  padding: 10px 0;
-  background-color: rgb(227, 104, 59);
-}
-
-.logo__title {
-  font-size: 2rem;
-  color: var(--text-color);
-}
-
-.theme-switcher {
-  cursor: pointer;
-  background-color: transparent;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  padding: 5px;
-  border: none;
-}
-
 .start-game__title {
   text-align: center;
   color: var(--text-color);

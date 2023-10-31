@@ -3,7 +3,7 @@ import { Portal } from 'components/portal'
 import { useModalMount } from './use-modal-mount'
 import { ModalLayout } from 'components/modal-layout/modal-layout'
 
-interface ModalProps {
+type ModalProps = {
   opened: boolean
   onClose: () => void
   children: ReactNode
