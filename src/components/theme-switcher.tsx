@@ -1,20 +1,14 @@
-import { useTheme } from 'hooks/use-theme'
-import { Icons } from './icons'
+import { useTheme } from 'lib/hooks/use-theme'
+import { IconButton } from './icon-button'
 
 export const ThemeSwitcher = () => {
   const [theme, switchTheme] = useTheme()
-  const iconProps = {
-    width: '30px',
-    height: '30px',
-  }
 
   return (
-    <button type="button" className="theme-switcher" onClick={switchTheme}>
-      {theme === 'dark' ? (
-        <Icons icon="sun" color="yellow" {...iconProps} />
-      ) : (
-        <Icons icon="moon" color="gray" {...iconProps} />
-      )}
-    </button>
+    <IconButton
+      icon={theme === 'dark' ? 'sun' : 'moon'}
+      color={theme === 'dark' ? 'yellow' : 'gray'}
+      onClick={switchTheme}
+    />
   )
 }

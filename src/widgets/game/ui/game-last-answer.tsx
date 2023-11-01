@@ -1,6 +1,8 @@
+import { useCountriesStore } from 'lib/stores/countries'
 import { useGameStore } from 'lib/stores/game'
 
 export const GameLastAnswer = () => {
+  const { gameLanguage } = useCountriesStore()
   const { lastAnswer } = useGameStore()
 
   if (!lastAnswer) return <></>
@@ -15,25 +17,38 @@ export const GameLastAnswer = () => {
       </span>
       <span className="answer">
         Мой ответ:{' '}
-        <span className="country">
-          {lastAnswer.answer.name.common}
+        <a
+          className="country"
+          href={lastAnswer.answer.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {lastAnswer.answer.translations[gameLanguage].common}
           <div className="country__flag">
-            <img src={lastAnswer.answer.flags.svg} alt={lastAnswer.answer.name.common} />
+            <img
+              src={`./flags/${lastAnswer.answer.id}.svg`}
+              alt={lastAnswer.answer.translations[gameLanguage].common}
+            />
           </div>
-        </span>
+        </a>
       </span>
       {lastAnswer.status === 'wrong' && (
         <span className="answer">
           Правильный ответ:{' '}
-          <span className="country">
-            {lastAnswer.correctAnswer.name.common}
+          <a
+            className="country"
+            href={lastAnswer.correctAnswer.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {lastAnswer.correctAnswer.translations[gameLanguage].common}
             <div className="country__flag">
               <img
-                src={lastAnswer.correctAnswer.flags.svg}
-                alt={lastAnswer.correctAnswer.name.common}
+                src={`./flags/${lastAnswer.correctAnswer.id}.svg`}
+                alt={lastAnswer.correctAnswer.translations[gameLanguage].common}
               />
             </div>
-          </span>
+          </a>
         </span>
       )}
     </div>

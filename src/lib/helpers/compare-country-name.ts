@@ -1,5 +1,15 @@
-import { CountryDto } from 'lib/dto/country-dto'
+import { Country, CountryLanguages } from 'lib/types'
 
-export const compareCountryName = (country: CountryDto, name: string) =>
-  country.name.common.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase() ||
-  country.name.official.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()
+export const compareCountryName = ({
+  country,
+  language,
+  name,
+}: {
+  country: Country
+  language: CountryLanguages
+  name: string
+}) =>
+  country.translations[language].common.trim().toLocaleLowerCase() ===
+    name.trim().toLocaleLowerCase() ||
+  country.translations[language].official.trim().toLocaleLowerCase() ===
+    name.trim().toLocaleLowerCase()

@@ -1,4 +1,4 @@
-import { Icons } from 'components/icons'
+import { IconButton } from 'components/icon-button'
 import { Modal } from 'components/modal/modal'
 import { useGameStore } from 'lib/stores/game'
 import { useState } from 'react'
@@ -9,9 +9,7 @@ export const GameEndBth = () => {
 
   return (
     <>
-      <button type="button" className="button game__bth" onClick={() => setOpened(true)}>
-        <Icons icon="close" width="32px" height="32px" />
-      </button>
+      <IconButton icon="close" onClick={() => setOpened(true)} />
       <Modal opened={opened} onClose={() => setOpened(!opened)}>
         <div className="game-end-modal">
           <span className="game-end-modal__title">Вы точно хотите закончить партию?</span>

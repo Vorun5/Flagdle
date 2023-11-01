@@ -1,3 +1,20 @@
+.icon-button {
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  border: none;
+  color: var(--text-color);
+  transition: 0.5s transform;
+}
+
+.icon-button:hover {
+  transform: rotate(360deg);
+  color: var(--accent-color);
+}
+
 .app-container {
   margin: 0 auto;
   place-items: center;
@@ -90,49 +107,6 @@
 
 .clue:hover {
   border-color: var(--hover-accent-color);
-}
-
-.answer {
-  font-size: 1.2rem;
-  display: block;
-  color: var(--text-color);
-  margin-bottom: 5px;
-}
-
-.answer__right {
-  color: greenyellow;
-}
-
-.answer__wrong {
-  color: red;
-}
-
-.country {
-  position: relative;
-  cursor: default;
-  color: var(--accent-color);
-  transition: color 0.3s;
-}
-
-.country:hover {
-  color: var(--hover-accent-color);
-}
-
-.country:hover .country__flag {
-  display: block;
-}
-
-.country__flag {
-  z-index: 2;
-  position: absolute;
-  top: 25px;
-  left: 0px;
-  width: 100px;
-  display: none;
-}
-
-.country__flag img {
-  width: 100%;
 }
 
 .box {

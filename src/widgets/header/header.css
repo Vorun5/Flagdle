@@ -1,0 +1,31 @@
+.header {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__settings {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.settings-bth {
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+}
+
+.logo__title {
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.spinning-setting-icon:hover {
+  transition: 0.3s transform;
+  transform: rotate(180deg);
+}

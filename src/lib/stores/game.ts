@@ -1,28 +1,29 @@
-import { CountryDto } from 'lib/dto/country-dto'
+import { CONUNTRIES } from 'lib/consts/countries'
 import { compareCountryName } from 'lib/helpers/compare-country-name'
+import { Country, CountryLanguages } from 'lib/types'
 import { create } from 'zustand'
 
 type State = {
-  guessedCountries: CountryDto[]
-  unguessedСountries: CountryDto[]
-  mysteriousCountry: CountryDto | null
+  guessedCountries: Country[]
+  unguessedСountries: Country[]
+  mysteriousCountry: Country | null
   gameStatus: 'playing' | 'winner' | 'idle'
   startTime: number
   endTime: number
   lastAnswer: null | {
     status: 'right' | 'wrong'
-    answer: CountryDto
-    correctAnswer: CountryDto
+    answer: Country
+    correctAnswer: Country
   }
 }
 
 type Action = {
-  startGame: (countries: CountryDto[]) => void
+  startGame: () => void
   endGame: () => void
-  enterCountryName: (countryName: string, countries: CountryDto[]) => void
+  enterCountryName: (countryName: string, language: CountryLanguages) => void
 }
 
-const guessCountry = (countries: CountryDto[]) =>
+const guessCountry = (countries: Country[]) =>
   countries[Math.floor(Math.random() * countries.length)]
 
 export const useGameStore = create<State & Action>((set) => ({
@@ -33,13 +34,13 @@ export const useGameStore = create<State & Action>((set) => ({
   startTime: 0,
   endTime: 0,
   lastAnswer: null,
-  startGame: (countries) => {
+  startGame: () => {
     set({
-      unguessedСountries: countries,
+      unguessedСountries: CONUNTRIES,
       gameStatus: 'playing',
       startTime: new Date().getTime(),
       guessedCountries: [],
-      mysteriousCountry: guessCountry(countries),
+      mysteriousCountry: guessCountry(CONUNTRIES),
     })
   },
   endGame: () => {
@@ -48,9 +49,12 @@ export const useGameStore = create<State & Action>((set) => ({
       endTime: new Date().getTime(),
     })
   },
-  enterCountryName: (countryName, countries) =>
+  enterCountryName: (countryName, language) =>
     set((state) => {
-      if (state.mysteriousCountry && compareCountryName(state.mysteriousCountry, countryName)) {
+      if (
+        state.mysteriousCountry &&
+        compareCountryName({ country: state.mysteriousCountry, name: countryName, language })
+      ) {
         const newUnguessedСountries = state.unguessedСountries.filter(
           (country) => country !== state.mysteriousCountry,
         )
@@ -70,9 +74,9 @@ export const useGameStore = create<State & Action>((set) => ({
           },
         }
       }
-      let userAnswer: CountryDto | null = null
-      for (const country of countries) {
-        if (compareCountryName(country, countryName)) {
+      let userAnswer: Country | null = null
+      for (const country of CONUNTRIES) {
+        if (compareCountryName({ country, name: countryName, language })) {
           userAnswer = country
           break
         }

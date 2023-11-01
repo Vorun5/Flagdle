@@ -7,7 +7,7 @@ export const GameMysteriousCountry = () => {
 
   return (
     <img
-      src={mysteriousCountry.flags.svg}
+      src={`./flags/${mysteriousCountry.id}.svg`}
       alt="Mysterious flag"
       draggable={false}
       className="flag"

@@ -1,11 +1,11 @@
 import { Icons } from 'components/icons'
-import { useKeydown } from 'hooks/use-keydown'
+import { useKeydown } from 'lib/hooks/use-keydown'
 import { useCountriesStore } from 'lib/stores/countries'
 import { useGameStore } from 'lib/stores/game'
 import { useEffect, useState } from 'react'
 
 export const GameField = () => {
-  const { countries, countryNames, countryNamesInLowerCase } = useCountriesStore()
+  const { gameLanguage, countryNames, countryNamesInLowerCase } = useCountriesStore()
   const { enterCountryName } = useGameStore()
 
   const [input, setInput] = useState('')
@@ -31,7 +31,7 @@ export const GameField = () => {
 
   const localEnterCountryName = () => {
     if (!canEnter || input.length === 0) return
-    enterCountryName(input, countries)
+    enterCountryName(input, gameLanguage)
     setInput('')
   }
 
