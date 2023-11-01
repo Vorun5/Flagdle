@@ -145,3 +145,39 @@
 .country__flag img {
   width: 100%;
 }
+
+.clues {
+  z-index: 1;
+  top: 35px;
+  position: absolute;
+  width: 260px;
+  max-height: 160px;
+  padding: 4px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.clue {
+  color: var(--text-color);
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-bottom: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color: var(--input-color);
+  display: block;
+  padding: 5px 10px 8px 10px;
+  box-shadow: 0 0 0 0 var(--hover-accent-color);
+}
+
+.clue:hover {
+  box-shadow: 0 0 0 1px var(--hover-accent-color);
+}
+
+.clue--active {
+  box-shadow: 0 0 0 2px var(--hover-accent-color);
+}
+
+.clue--active:hover {
+  box-shadow: 0 0 0 2px var(--hover-accent-color);
+}
