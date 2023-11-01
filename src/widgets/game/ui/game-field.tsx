@@ -36,12 +36,17 @@ export const GameField = () => {
   }
 
   useKeydown('Enter', () => {
-    if (input.trim().length === 0) return
-    if (!canEnter && clue.length !== 0) {
-      setInput(clue[0])
+    if (input.trim().length === 0) {
+      setCanEnter(false)
       return
     }
-    localEnterCountryName()
+    if (!canEnter && clue.length !== 0) {
+      setInput(clue[selectedClue])
+      return
+    }
+    if (canEnter) {
+      localEnterCountryName()
+    }
   })
 
   useKeydown('Tab', (event) => {

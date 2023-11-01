@@ -66,14 +66,14 @@ const guessCountry = (countries: number[]) => {
 export const useGameStore = create<State & Action>((set) => ({
   ...initGameStore(),
   startGame: () => {
-    set((state) => ({
+    set({
       unguessedСountryIds: COUNTRIES_IDS,
       gameStatus: 'playing',
       startTime: new Date().getTime(),
       guessedСountryIds: [],
-      mysteriousCountry: guessCountry(state.unguessedСountryIds),
+      mysteriousCountry: guessCountry(COUNTRIES_IDS),
       lastAnswer: null,
-    }))
+    })
   },
   endGame: () => {
     set({

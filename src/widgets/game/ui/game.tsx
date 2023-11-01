@@ -8,7 +8,7 @@ import '../game.css'
 
 export const Game = () => {
   return (
-    <div className="box">
+    <section className="box">
       <div className="game__header">
         <div>
           <GameStopwatch />
@@ -19,6 +19,6 @@ export const Game = () => {
       <GameMysteriousCountry />
       <GameField />
       <GameLastAnswer />
-    </div>
+    </section>
   )
 }
