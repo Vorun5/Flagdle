@@ -1,6 +1,6 @@
 import { Country } from 'lib/types'
 
-export const CONUNTRIES: Country[] = [
+export const COUNTRIES: Country[] = [
   {
     id: 1,
     code: 'tc',
@@ -12551,3 +12551,7 @@ export const CONUNTRIES: Country[] = [
     link: 'https://goo.gl/maps/P77LaEVkKJKXneRC6',
   },
 ]
+
+export const COUNTRIES_LENGTH = COUNTRIES.length
+
+export const COUNTRIES_IDS = Array.from({ length: COUNTRIES.length }, (_, index) => index + 1)

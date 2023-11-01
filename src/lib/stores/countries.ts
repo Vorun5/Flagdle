@@ -1,4 +1,4 @@
-import { CONUNTRIES } from 'lib/consts/countries'
+import { COUNTRIES } from 'lib/consts/countries'
 import { CountryLanguages } from 'lib/types'
 import { create } from 'zustand'
 
@@ -16,7 +16,7 @@ function initCountriesStore(): State {
   const gameLanguage: CountryLanguages = 'rus'
   const commonCountryNames: string[] = []
   const officialnCountryNames: string[] = []
-  for (const country of CONUNTRIES) {
+  for (const country of COUNTRIES) {
     commonCountryNames.push(country.translations[gameLanguage].common)
     officialnCountryNames.push(country.translations[gameLanguage].official)
   }
