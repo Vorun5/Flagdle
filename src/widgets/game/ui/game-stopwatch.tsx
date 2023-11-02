@@ -1,3 +1,4 @@
+import { convertTime } from 'lib/helpers/convert-time'
 import { useGameStore } from 'lib/stores/game'
 import { useEffect, useState } from 'react'
 
@@ -18,12 +19,14 @@ export const GameStopwatch = () => {
     }
   }, [gameStatus, startTime])
 
+  const time = convertTime(stopwatch)
+
   return (
     <span className="game__info">
       Время:{' '}
       <b>
-        {Math.floor(stopwatch / 1000 / 60) !== 0 && <>{Math.floor(stopwatch / 1000 / 60)} мин. </>}
-        {Math.round((stopwatch / 1000) % 60)} сек.
+        {time.minutes !== 0 && <>{time.minutes} мин. </>}
+        {time.seconds} сек.
       </b>
     </span>
   )

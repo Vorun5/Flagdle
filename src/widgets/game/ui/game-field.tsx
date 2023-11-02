@@ -1,11 +1,10 @@
 import { Icons } from 'components/icons'
 import { useKeydown } from 'lib/hooks/use-keydown'
-import { useCountriesStore } from 'lib/stores/countries'
 import { useGameStore } from 'lib/stores/game'
 import { useEffect, useState } from 'react'
 
 export const GameField = () => {
-  const { gameLanguage, countryNames, countryNamesInLowerCase } = useCountriesStore()
+  const { language, countryNames, countryNamesInLowerCase } = useGameStore()
   const { enterCountryName } = useGameStore()
 
   const [input, setInput] = useState('')
@@ -30,23 +29,20 @@ export const GameField = () => {
   }, [input, countryNamesInLowerCase, countryNames])
 
   const localEnterCountryName = () => {
-    if (!canEnter || input.length === 0) return
-    enterCountryName(input, gameLanguage)
+    if (!canEnter || input.trim().length === 0) {
+      setCanEnter(false)
+      return
+    }
+    enterCountryName(input, language)
     setInput('')
   }
 
   useKeydown('Enter', () => {
-    if (input.trim().length === 0) {
-      setCanEnter(false)
-      return
-    }
     if (!canEnter && clue.length !== 0) {
       setInput(clue[selectedClue])
       return
     }
-    if (canEnter) {
-      localEnterCountryName()
-    }
+    localEnterCountryName()
   })
 
   useKeydown('Tab', (event) => {
@@ -81,7 +77,7 @@ export const GameField = () => {
         className="game__field field"
       />
       <div
-        className={`game__field-bth ${canEnter ? '' : 'game__field-bth--disable'}`}
+        className={`game__field-btn ${canEnter ? '' : 'game__field-btn--disable'}`}
         onClick={localEnterCountryName}
       >
         <Icons icon="arrow-r" width="20px" height="20px" color="white" />

@@ -1,9 +1,7 @@
-import { useCountriesStore } from 'lib/stores/countries'
 import { useGameStore } from 'lib/stores/game'
 
 export const GameLastAnswer = () => {
-  const { gameLanguage } = useCountriesStore()
-  const { lastAnswer } = useGameStore()
+  const { language, lastAnswer } = useGameStore()
 
   if (!lastAnswer) return <></>
 
@@ -23,11 +21,11 @@ export const GameLastAnswer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {lastAnswer.answer.translations[gameLanguage].common}
+          {lastAnswer.answer.translations[language].common}
           <div className="country__flag">
             <img
               src={`./flags/${lastAnswer.answer.id}.svg`}
-              alt={lastAnswer.answer.translations[gameLanguage].common}
+              alt={lastAnswer.answer.translations[language].common}
             />
           </div>
         </a>
@@ -41,11 +39,11 @@ export const GameLastAnswer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {lastAnswer.correctAnswer.translations[gameLanguage].common}
+            {lastAnswer.correctAnswer.translations[language].common}
             <div className="country__flag">
               <img
                 src={`./flags/${lastAnswer.correctAnswer.id}.svg`}
-                alt={lastAnswer.correctAnswer.translations[gameLanguage].common}
+                alt={lastAnswer.correctAnswer.translations[language].common}
               />
             </div>
           </a>

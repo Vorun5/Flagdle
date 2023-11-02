@@ -1,32 +1,25 @@
 import { useGameStore } from 'lib/stores/game'
-import { Modal } from 'components/modal/modal'
-import { useState } from 'react'
 import { COUNTRIES_LENGTH } from 'lib/consts/countries'
+import { convertTime } from 'lib/helpers/convert-time'
 import '../game-result.css'
 
 export const GameResult = () => {
-  const { guessedСountryIds: guessedCountries, startTime, endTime, startGame } = useGameStore()
-  const time = endTime - startTime
-  const [opened, setOpened] = useState(false)
+  const { guessedСountryIds, startTime, endTime, startGame } = useGameStore()
+  const time = convertTime(endTime - startTime)
 
   return (
-    <section className="box">
-      <span>
-        Отгадано: {guessedCountries.length} из {COUNTRIES_LENGTH}
+    <section className="box game-result">
+      <h3 className="game-result__title">Ваш результат!</h3>
+      <span className="game-result__guessed">
+        Отгадано {guessedСountryIds.length} из {COUNTRIES_LENGTH} флагов
       </span>
-      <span>
-        Время: {Math.floor(time / 1000 / 60) !== 0 && <>{Math.floor(time / 1000 / 60)} мин. </>}
-        {Math.round((time / 1000) % 60)} сек. секунд
+      <span className="game-result__time">
+        За {time.minutes !== 0 && <>{time.minutes} мин. и </>}
+        {time.seconds} сек.
       </span>
-      <button className="button" onClick={() => setOpened(true)}>
+      <button className="button action-btn" onClick={startGame}>
         Начать новую партию
       </button>
-      <Modal opened={opened} onClose={() => setOpened(!opened)}>
-        <span>Вы угадали!</span>
-        <button className="button" onClick={startGame}>
-          Начать новую партию
-        </button>
-      </Modal>
     </section>
   )
 }

@@ -12,14 +12,6 @@
   gap: 0.5rem;
 }
 
-.settings-bth {
-  padding: 0;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  color: var(--text-color);
-}
-
 .logo__title {
   font-size: 2rem;
   color: var(--text-color);

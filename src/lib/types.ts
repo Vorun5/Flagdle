@@ -1,5 +1,33 @@
 export type CountryLanguages = keyof Country['translations']
 
+export const ALL_COUNTRY_LANGUAGES: CountryLanguages[] = [
+  'ara',
+  'bre',
+  'ces',
+  'cym',
+  'deu',
+  'eng',
+  'est',
+  'fin',
+  'fra',
+  'hrv',
+  'hun',
+  'ita',
+  'jpn',
+  'kor',
+  'nld',
+  'per',
+  'pol',
+  'rus',
+  'slk',
+  'spa',
+  'srp',
+  'swe',
+  'tur',
+  'urd',
+  'zho',
+]
+
 export type CountryTranslation = {
   common: string
   official: string

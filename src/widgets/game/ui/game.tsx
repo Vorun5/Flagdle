@@ -2,7 +2,7 @@ import { GameStopwatch } from './game-stopwatch'
 import { GameScore } from './game-score'
 import { GameLastAnswer } from './game-last-answer'
 import { GameField } from './game-field'
-import { GameEndBth } from './game-end-bth'
+import { GameEndBtn } from './game-end-btn'
 import { GameMysteriousCountry } from './game-mysterious-country'
 import '../game.css'
 
@@ -14,7 +14,7 @@ export const Game = () => {
           <GameStopwatch />
           <GameScore />
         </div>
-        <GameEndBth />
+        <GameEndBtn />
       </div>
       <GameMysteriousCountry />
       <GameField />

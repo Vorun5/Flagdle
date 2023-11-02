@@ -17,7 +17,7 @@
   font-weight: 500;
 }
 
-.game__bth {
+.game__btn {
   padding: 0px;
   display: block;
   height: 32px;
@@ -27,15 +27,15 @@
   border-radius: 50%;
 }
 
-.game__bth-text {
+.game__btn-text {
   display: none;
 }
 
-.game__bth:hover .game__bth-text {
+.game__btn:hover .game__btn-text {
   display: inline;
 }
 
-.game__bth:hover .game__bth-icon {
+.game__btn:hover .game__btn-icon {
   display: none;
 }
 
@@ -47,7 +47,7 @@
   align-items: center;
 }
 
-.game__field-bth {
+.game__field-btn {
   margin-left: 0.5rem;
   cursor: pointer;
   background-color: var(--accent-color);
@@ -59,16 +59,16 @@
   border-radius: 50%;
 }
 
-.game__field-bth:hover {
+.game__field-btn:hover {
   background-color: var(--hover-accent-color);
 }
 
-.game__field-bth--disable {
+.game__field-btn--disable {
   cursor: default;
   background-color: gray;
 }
 
-.game__field-bth--disable:hover {
+.game__field-btn--disable:hover {
   background-color: gray;
 }
 
@@ -99,7 +99,7 @@
   gap: 1rem;
 }
 
-.game-end-modal__cancel-bth {
+.game-end-modal__cancel-btn {
   background-color: var(--action-color);
 }
 

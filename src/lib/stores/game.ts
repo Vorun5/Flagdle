@@ -1,6 +1,6 @@
 import { COUNTRIES, COUNTRIES_IDS } from 'lib/consts/countries'
 import { compareCountryName } from 'lib/helpers/compare-country-name'
-import { Country, CountryLanguages } from 'lib/types'
+import { ALL_COUNTRY_LANGUAGES, Country, CountryLanguages } from 'lib/types'
 import { create } from 'zustand'
 
 type State = {
@@ -23,11 +23,11 @@ type State = {
 type Action = {
   startGame: () => void
   endGame: () => void
+  changeGameLanguage: (language: CountryLanguages) => void
   enterCountryName: (countryName: string, language: CountryLanguages) => void
 }
 
-function initGameStore(): State {
-  const language: CountryLanguages = 'rus'
+function getCountryNames(language: CountryLanguages) {
   const commonCountryNames: string[] = []
   const officialnCountryNames: string[] = []
   for (const country of COUNTRIES) {
@@ -40,7 +40,26 @@ function initGameStore(): State {
   const countryNamesInLowerCase = countryNames.map((countryName) => countryName.toLowerCase())
 
   return {
-    language,
+    countryNames,
+    countryNamesInLowerCase,
+  }
+}
+
+function initGameStore(): State {
+  let language = localStorage.getItem('game-language')
+  if (language !== null) {
+    try {
+      ALL_COUNTRY_LANGUAGES.includes(language as CountryLanguages)
+    } catch {
+      language = 'eng'
+    }
+  } else {
+    language = 'eng'
+  }
+
+  const { countryNames, countryNamesInLowerCase } = getCountryNames(language as CountryLanguages)
+  return {
+    language: language as CountryLanguages,
     countryNames,
     countryNamesInLowerCase,
     guessedСountryIds: [],
@@ -80,6 +99,16 @@ export const useGameStore = create<State & Action>((set) => ({
       gameStatus: 'winner',
       endTime: new Date().getTime(),
       lastAnswer: null,
+    })
+  },
+  changeGameLanguage: (language) => {
+    localStorage.setItem('game-language', language)
+    const { countryNames, countryNamesInLowerCase } = getCountryNames(language)
+    console.log(language, countryNames, countryNamesInLowerCase)
+    set({
+      language,
+      countryNames,
+      countryNamesInLowerCase,
     })
   },
   enterCountryName: (countryName) =>
