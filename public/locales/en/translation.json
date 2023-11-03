@@ -1,0 +1,29 @@
+{
+  "settings": "Settings",
+  "gameLanguage": "Game language",
+  "siteLanguage": "Site language",
+  "rulesOfTheGame": "Rules of the game",
+  "rules": {
+    "manyFlagsShoretTime": "You need to guess as many flags as possible in a shorter time",
+    "canEnterWrongFlagName": "You can enter the wrong flag name without fear of getting a fine or something like that"
+  },
+  "startTheGame": "Start the game!",
+  "time": "Time",
+  "score": "Score",
+  "outOf": "out of",
+  "lastAnswer": "Last answer",
+  "guessedRight": "guessed right",
+  "didntGuess": "didn't guess",
+  "yourAnswer": "Your Answer",
+  "correctAnswer": "Correct answer",
+  "finishTheGame": {
+    "title": "Are you sure you want to finish the game?",
+    "description": "You haven't guessed all the flags yet and you can improve your result!",
+    "no": "Сontinue",
+    "yes": "Finish the game"
+  },
+  "yourResult": "Your result!",
+  "resultFlags": "{{guessed}} out of {{total}} flags guessed",
+  "resultTime": "In {{minutes}} min. and {{seconds}} sec.",
+  "startNewGame": "Start a new game"
+}

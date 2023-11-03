@@ -4,8 +4,9 @@ import { Modal } from './modal/modal'
 import { Select } from './select'
 import { useGameStore } from 'lib/stores/game'
 import { ALL_COUNTRY_LANGUAGES, CountryLanguages } from 'lib/types'
+import { useTranslation } from 'react-i18next'
 
-const t = {
+const gameLanguages = {
   ara: 'اللغة العربية', // Арабский
   bre: 'ar brezhoneg', // Бретонский
   ces: 'čeština', // Чешский
@@ -33,7 +34,19 @@ const t = {
   zho: '中国人', // Китайский
 }
 
+const siteLanguages = [
+  {
+    label: 'Русский',
+    value: 'ru',
+  },
+  {
+    label: 'English',
+    value: 'en',
+  },
+]
+
 export const Settings = () => {
+  const { t, i18n } = useTranslation()
   const { language, changeGameLanguage } = useGameStore()
   const [opened, setOpened] = useState(false)
 
@@ -43,19 +56,25 @@ export const Settings = () => {
       <Modal opened={opened} onClose={() => setOpened(false)}>
         <section className="settings">
           <div className="settings__header">
-            <h2 className="settings__title">Настройки</h2>
+            <h2 className="settings__title">{t('settings')}</h2>
             <IconButton icon="close" onClick={() => setOpened(false)} />
           </div>
           <div className="settings__content">
-            <span className="settings__subtitle">Язык игры</span>
+            <span className="settings__subtitle">{t('siteLanguage')}</span>
+            <Select
+              selectedValue={i18n.language}
+              onSelect={(lang) => i18n.changeLanguage(lang)}
+              options={siteLanguages}
+            />
+            <span className="settings__subtitle">{t('gameLanguage')}</span>
             <Select
               selectedValue={language}
               onSelect={(lang) => changeGameLanguage(lang as CountryLanguages)}
               options={ALL_COUNTRY_LANGUAGES.map((lang) => ({
                 value: lang,
-                label: t[lang],
+                label: gameLanguages[lang],
               }))}
-            ></Select>
+            />
           </div>
         </section>
       </Modal>

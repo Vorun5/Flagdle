@@ -86,6 +86,7 @@
 .settings__subtitle {
   font-size: 1.2rem;
   font-weight: 500;
+  margin-top: 0.5rem;
 }
 
 .settings__content {

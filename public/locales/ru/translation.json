@@ -1,0 +1,32 @@
+{
+  "settings": "Настройки",
+  "gameLanguage": "Язык игры",
+  "siteLanguage": "Язык сайта",
+  "rulesOfTheGame": "Правила игры",
+  "rules": {
+    "manyFlagsShoretTime": "Вам нужно угадать как можно больше флагов за более короткое время",
+    "canEnterWrongFlagName": "Вы можете ввести неправильное имя флага, не опасаясь получить штраф или что-то в этом роде"
+  },
+  "startTheGame": "Начать игру!",
+  "time": "Время",
+  "score": "Счет",
+  "outOf": "из",
+  "minutes": "min.",
+
+  "seconds": "sec.",
+  "lastAnswer": "Последний ответ",
+  "guessedRight": "угадал",
+  "didntGuess": "не угадал",
+  "yourAnswer": "Ваш ответ",
+  "correctAnswer": "Правильный ответ",
+  "finishTheGame": {
+    "title": "Вы точно хотите закончить партию?",
+    "description": "Вы ещё не угадали все флаги и можете улучшить свой результат!",
+    "no": "Продолжить",
+    "yes": "Закончить партию"
+  },
+  "yourResult": "Ваш результат!",
+  "resultFlags": "Отгадано {{guessed}} из {{total}} флагов",
+  "resultTime": "За {{minutes}} мин. и {{seconds}} сек.",
+  "startNewGame": "Начать новую партию"
+}

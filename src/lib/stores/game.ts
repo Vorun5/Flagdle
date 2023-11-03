@@ -104,7 +104,6 @@ export const useGameStore = create<State & Action>((set) => ({
   changeGameLanguage: (language) => {
     localStorage.setItem('game-language', language)
     const { countryNames, countryNamesInLowerCase } = getCountryNames(language)
-    console.log(language, countryNames, countryNamesInLowerCase)
     set({
       language,
       countryNames,

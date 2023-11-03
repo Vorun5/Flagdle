@@ -1,8 +1,10 @@
 import { convertTime } from 'lib/helpers/convert-time'
 import { useGameStore } from 'lib/stores/game'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export const GameStopwatch = () => {
+  const { t } = useTranslation()
   const { gameStatus, startTime } = useGameStore()
 
   const [stopwatch, setStopwatch] = useState(0)
@@ -23,10 +25,14 @@ export const GameStopwatch = () => {
 
   return (
     <span className="game__info">
-      Время:{' '}
+      {t('time')}:{' '}
       <b>
-        {time.minutes !== 0 && <>{time.minutes} мин. </>}
-        {time.seconds} сек.
+        {time.minutes !== 0 && (
+          <>
+            {time.minutes} {t('minutes')}{' '}
+          </>
+        )}
+        {time.seconds} {t('seconds')}
       </b>
     </span>
   )

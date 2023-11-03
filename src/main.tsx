@@ -1,12 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
+import { App } from './app'
+import { StrictMode } from 'react'
 import 'styles/index.css'
 import 'styles/reset.css'
 import 'styles/main.css'
-import { App } from './app'
+import 'lib/i18n'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+createRoot(document.getElementById('root') as HTMLElement).render(
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
 )

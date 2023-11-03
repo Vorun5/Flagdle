@@ -1,6 +1,8 @@
 import { useGameStore } from 'lib/stores/game'
+import { useTranslation } from 'react-i18next'
 
 export const GameLastAnswer = () => {
+  const { t } = useTranslation()
   const { language, lastAnswer } = useGameStore()
 
   if (!lastAnswer) return <></>
@@ -8,13 +10,13 @@ export const GameLastAnswer = () => {
   return (
     <div>
       <span className="answer">
-        Последний ответ:{' '}
+        {t('lastAnswer')}:{' '}
         <span className={lastAnswer.status === 'right' ? 'answer__right' : 'answer__wrong'}>
-          {lastAnswer.status === 'right' ? 'угадал' : 'не угадал'}
+          {lastAnswer.status === 'right' ? t('guessedRight') : t('didntGuess')}
         </span>
       </span>
       <span className="answer">
-        Мой ответ:{' '}
+        {t('yourAnswer')}:{' '}
         <a
           className="country"
           href={lastAnswer.answer.link}
@@ -32,7 +34,7 @@ export const GameLastAnswer = () => {
       </span>
       {lastAnswer.status === 'wrong' && (
         <span className="answer">
-          Правильный ответ:{' '}
+          {t('correctAnswer')}:{' '}
           <a
             className="country"
             href={lastAnswer.correctAnswer.link}
