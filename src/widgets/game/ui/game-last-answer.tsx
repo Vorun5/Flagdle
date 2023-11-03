@@ -1,9 +1,27 @@
+import { Icons } from 'components/icons'
 import { useGameStore } from 'lib/stores/game'
+import { Country } from 'lib/types'
 import { useTranslation } from 'react-i18next'
+
+const GameLastAnswerCountry = ({ country }: { country: Country }) => {
+  const { language } = useGameStore()
+
+  return (
+    <span className="country">
+      {country.translations[language].common}
+      <div className="country__flag">
+        <img src={`./flags/${country.id}.svg`} alt={country.translations[language].common} />
+        <a className="country__link" href={country.link} target="_blank" rel="noopener noreferrer">
+          Google Maps <Icons width="16px" height="16px" icon="external-link" />
+        </a>
+      </div>
+    </span>
+  )
+}
 
 export const GameLastAnswer = () => {
   const { t } = useTranslation()
-  const { language, lastAnswer } = useGameStore()
+  const { lastAnswer } = useGameStore()
 
   if (!lastAnswer) return <></>
 
@@ -16,39 +34,11 @@ export const GameLastAnswer = () => {
         </span>
       </span>
       <span className="answer">
-        {t('yourAnswer')}:{' '}
-        <a
-          className="country"
-          href={lastAnswer.answer.link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {lastAnswer.answer.translations[language].common}
-          <div className="country__flag">
-            <img
-              src={`./flags/${lastAnswer.answer.id}.svg`}
-              alt={lastAnswer.answer.translations[language].common}
-            />
-          </div>
-        </a>
+        {t('yourAnswer')}: <GameLastAnswerCountry country={lastAnswer.answer} />
       </span>
       {lastAnswer.status === 'wrong' && (
         <span className="answer">
-          {t('correctAnswer')}:{' '}
-          <a
-            className="country"
-            href={lastAnswer.correctAnswer.link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {lastAnswer.correctAnswer.translations[language].common}
-            <div className="country__flag">
-              <img
-                src={`./flags/${lastAnswer.correctAnswer.id}.svg`}
-                alt={lastAnswer.correctAnswer.translations[language].common}
-              />
-            </div>
-          </a>
+          {t('correctAnswer')}: <GameLastAnswerCountry country={lastAnswer.correctAnswer} />
         </span>
       )}
     </div>
