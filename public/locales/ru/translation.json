@@ -5,15 +5,15 @@
   "rulesOfTheGame": "Правила игры",
   "rules": {
     "manyFlagsShoretTime": "Вам нужно угадать как можно больше флагов за более короткое время",
-    "canEnterWrongFlagName": "Вы можете ввести неправильное имя флага, не опасаясь получить штраф или что-то в этом роде"
+    "canEnterWrongFlagName": "Вы можете ввести неправильное имя флага, не опасаясь получить штраф или что-то в этом роде",
+    "studyFlags": "Изучать флаги!✍" 
   },
   "startTheGame": "Начать игру!",
   "time": "Время",
   "score": "Счет",
   "outOf": "из",
-  "minutes": "min.",
-
-  "seconds": "sec.",
+  "minutes": "мин.",
+  "seconds": "сек.",
   "lastAnswer": "Последний ответ",
   "guessedRight": "угадал",
   "didntGuess": "не угадал",

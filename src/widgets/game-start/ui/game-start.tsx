@@ -12,6 +12,7 @@ export const GameStart = () => {
       <ul className="start-game__rules">
         <li className="start-game__rule">{t('rules.manyFlagsShoretTime')}</li>
         <li className="start-game__rule">{t('rules.canEnterWrongFlagName')}</li>
+        <li className="start-game__rule">{t('rules.studyFlags')}</li>
       </ul>
       <button className="button action-btn" onClick={startGame}>
         {t('startTheGame')}

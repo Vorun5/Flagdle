@@ -33,10 +33,24 @@ export type CountryTranslation = {
   official: string
 }
 
+export type CountryContinent =
+  | 'North America'
+  | 'Africa'
+  | 'Asia'
+  | 'Oceania'
+  | 'South America'
+  | 'Europe'
+  | 'Antarctica'
+
+export type CountryRegion = 'Americas' | 'Africa' | 'Asia' | 'Oceania' | 'Europe' | 'Antarctic'
+
 export type Country = {
   id: number
   code: string
   link: string
+  population: number
+  continents: CountryContinent[]
+  region: CountryRegion
   flag: {
     url: string
   }

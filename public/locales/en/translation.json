@@ -5,12 +5,15 @@
   "rulesOfTheGame": "Rules of the game",
   "rules": {
     "manyFlagsShoretTime": "You need to guess as many flags as possible in a shorter time",
-    "canEnterWrongFlagName": "You can enter the wrong flag name without fear of getting a fine or something like that"
+    "canEnterWrongFlagName": "You can enter the wrong flag name without fear of getting a fine or something like that",
+    "studyFlags": "Study flags!✍"
   },
   "startTheGame": "Start the game!",
   "time": "Time",
   "score": "Score",
   "outOf": "out of",
+  "minutes": "min.",
+  "seconds": "sec.",
   "lastAnswer": "Last answer",
   "guessedRight": "guessed right",
   "didntGuess": "didn't guess",
