@@ -11,6 +11,13 @@ const GameLastAnswerCountry = ({ country }: { country: Country }) => {
       {country.translations[language].common}
       <div className="country__flag">
         <img src={`./flags/${country.id}.svg`} alt={country.translations[language].common} />
+        <span className="country__continents">
+          {country.continents.map((continent, index) => {
+            const end = country.continents.length != index + 1 ? ', ' : ''
+            return continent + end
+          })}
+        </span>
+        <span className="country__population">{country.population}</span>
         <a className="country__link" href={country.link} target="_blank" rel="noopener noreferrer">
           Google Maps <Icons width="16px" height="16px" icon="external-link" />
         </a>

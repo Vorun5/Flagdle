@@ -1,11 +1,12 @@
 import { Icons } from 'components/icons'
 import { useKeydown } from 'lib/hooks/use-keydown'
 import { useGameStore } from 'lib/stores/game/game'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const GameField = () => {
-  const { language, countryNames, countryNamesInLowerCase } = useGameStore()
-  const { enterCountryName } = useGameStore()
+  const { language, countryNames, countryNamesInLowerCase, enterCountryName } = useGameStore()
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const [input, setInput] = useState('')
   const [selectedClue, setSelectedClue] = useState(-1)
@@ -69,6 +70,7 @@ export const GameField = () => {
   return (
     <div className="game__field-container">
       <input
+        ref={inputRef}
         type="text"
         value={input}
         onChange={(event) => {
@@ -90,6 +92,9 @@ export const GameField = () => {
               className={`clue ${selectedClue === index ? 'clue--active' : ''}`}
               onClick={() => {
                 setInput(coutnryName)
+                if (inputRef.current) {
+                  inputRef.current.focus()
+                }
               }}
             >
               {coutnryName}

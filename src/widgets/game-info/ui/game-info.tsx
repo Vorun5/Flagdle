@@ -6,11 +6,15 @@ import '../game-info.css'
 
 export const GameInfo = () => {
   const { gameStatus } = useGameStore()
+
   return (
     <section className="box">
-      {gameStatus === 'idle' && <GameStart />}
-      {gameStatus === 'winner' && <GameResult />}
-      <GameFilters />
+      <div className="game-info">
+        {gameStatus === 'idle' && <GameStart />}
+        {gameStatus === 'winner' && <GameResult />}
+        <div className="game-info__divider" />
+        <GameFilters />
+      </div>
     </section>
   )
 }

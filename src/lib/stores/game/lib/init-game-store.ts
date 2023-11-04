@@ -30,8 +30,6 @@ export const initGameStore = (): GameStoreState => {
     mysteriousCountry: null,
     gameStatus: 'idle',
     startTime: 0,
-    endTime: 0,
-    lastAnswer: null,
     filters: {
       population: {
         from: 0,
@@ -39,5 +37,7 @@ export const initGameStore = (): GameStoreState => {
       },
       continents: [],
     },
+    lastAnswer: null,
+    lastResult: null,
   }
 }

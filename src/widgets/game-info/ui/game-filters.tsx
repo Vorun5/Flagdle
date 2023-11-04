@@ -1,8 +1,10 @@
 import { ALL_COUNTRY_CONTINENTS } from 'lib/types'
 import { useGameStore, GameFiltersType, MAX_POPULATION, MIN_POPULATION } from 'lib/stores/game'
 import { useEffect, useId, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export const GameFilters = () => {
+  const { t } = useTranslation()
   const [localFilters, setLocalFilters] = useState<GameFiltersType | null>(null)
   const { filters, changeFilters, countryIds, startGame } = useGameStore()
   const fromId = useId()
@@ -16,8 +18,10 @@ export const GameFilters = () => {
 
   return (
     <div className="game-filters">
-      <h2 className="game-filters__title">Фильтры ({countryIds.length})</h2>
-      <h4 className="game-filters__subtitle">Континенты</h4>
+      <h2 className="game-filters__title">
+        {t('filters')} ({countryIds.length})
+      </h2>
+      <h4 className="game-filters__subtitle">{t('continents')}</h4>
       <div className="continents-filter">
         <button
           className={`continents-filter__item ${
@@ -30,7 +34,7 @@ export const GameFilters = () => {
             })
           }
         >
-          Все континенты
+          {t('continentsList.All')}
         </button>
         {ALL_COUNTRY_CONTINENTS.map((continent) => (
           <button
@@ -47,22 +51,21 @@ export const GameFilters = () => {
               })
             }}
           >
-            {continent}
+            {t(`continentsList.${continent}`)}
           </button>
         ))}
       </div>
-      <h4 className="game-filters__subtitle">Население</h4>
+      <h4 className="game-filters__subtitle">{t('population')}</h4>
       <div className="population-filter">
         <div className="population-field__container">
           <label className="population-field__label" htmlFor={fromId}>
-            От
+            {t('from')}
           </label>
           <input
             className="field"
             id={fromId}
             type="number"
             value={localFilters.population.from}
-            defaultValue={MIN_POPULATION}
             min={MIN_POPULATION}
             max={MAX_POPULATION}
             onChange={(event) => {
@@ -79,14 +82,13 @@ export const GameFilters = () => {
         </div>
         <div className="population-field__container">
           <label className="population-field__label" htmlFor={toId}>
-            До
+            {t('to')}
           </label>
           <input
             className="field"
             id={toId}
             type="number"
             value={localFilters.population.to}
-            defaultValue={MAX_POPULATION}
             min={MIN_POPULATION}
             max={MAX_POPULATION}
             onChange={(event) => {
@@ -109,10 +111,10 @@ export const GameFilters = () => {
             changeFilters(localFilters)
           }}
         >
-          Применить фильтры
+          {t('applyFilters')}
         </button>
         <button className="button action-btn" onClick={startGame}>
-          Начать игру
+          {t('startTheGame')}
         </button>
       </div>
     </div>

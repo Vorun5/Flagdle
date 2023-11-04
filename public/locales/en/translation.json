@@ -28,5 +28,21 @@
   "yourResult": "Your result!",
   "resultFlags": "{{guessed}} out of {{total}} flags guessed",
   "resultTime": "In {{minutes}} min. and {{seconds}} sec.",
-  "startNewGame": "Start a new game"
+  "startNewGame": "Start a new game",
+  "filters": "Filters",
+  "continents": "Continents",
+  "continentsList": {
+    "All": "All continents",
+    "Africa": "Africa",
+    "Antarctica": "Antarctica",
+    "Asia": "Asia",
+    "Europe": "Europe",
+    "North America": "North America",
+    "South America": "South America",
+    "Oceania": "Oceania"
+  },
+  "population": "Population",
+  "from": "From",
+  "to": "To",
+  "applyFilters": "Apply filters"
 }

@@ -21,10 +21,18 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
     })
   },
   endGame: () => {
-    set({
-      gameStatus: 'winner',
-      endTime: new Date().getTime(),
-      lastAnswer: null,
+    set((state) => {
+      return {
+        gameStatus: 'winner',
+        lastAnswer: null,
+        lastResult: {
+          startTime: state.startTime,
+          endTime: new Date().getTime(),
+          countryIds: state.countryIds,
+          guessedСountryIds: state.guessedСountryIds,
+          unguessedСountryIds: state.unguessedСountryIds,
+        },
+      }
     })
   },
   changeGameLanguage: (language) => {
@@ -101,12 +109,28 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
         )
         const gameStatus = newUnguessedСountryIds.length !== 0 ? 'playing' : 'winner'
 
+        if (gameStatus === 'winner') {
+          return {
+            unguessedСountryIds: [],
+            guessedСountryIds: [...state.countryIds],
+            gameStatus: 'winner',
+            endTime: new Date().getTime(),
+            lastAnswer: null,
+            lastResult: {
+              startTime: state.startTime,
+              endTime: new Date().getTime(),
+              countryIds: state.countryIds,
+              unguessedСountryIds: [],
+              guessedСountryIds: [...state.countryIds],
+            },
+          }
+        }
+
         return {
           unguessedСountryIds: newUnguessedСountryIds,
           guessedСountryIds: [...state.guessedСountryIds, state.mysteriousCountry.id],
-          mysteriousCountry: guessCountry(newUnguessedСountryIds),
           gameStatus: gameStatus,
-          endTime: gameStatus === 'winner' ? new Date().getTime() : 0,
+          mysteriousCountry: guessCountry(newUnguessedСountryIds),
           lastAnswer: {
             status: 'right',
             answer: state.mysteriousCountry,

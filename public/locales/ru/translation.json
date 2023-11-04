@@ -6,7 +6,7 @@
   "rules": {
     "manyFlagsShoretTime": "Вам нужно угадать как можно больше флагов за более короткое время",
     "canEnterWrongFlagName": "Вы можете ввести неправильное имя флага, не опасаясь получить штраф или что-то в этом роде",
-    "studyFlags": "Изучать флаги!✍" 
+    "studyFlags": "Изучать флаги!✍"
   },
   "startTheGame": "Начать игру!",
   "time": "Время",
@@ -28,5 +28,21 @@
   "yourResult": "Ваш результат!",
   "resultFlags": "Отгадано {{guessed}} из {{total}} флагов",
   "resultTime": "За {{minutes}} мин. и {{seconds}} сек.",
-  "startNewGame": "Начать новую партию"
+  "startNewGame": "Начать новую партию",
+  "filters": "Фильтры",
+  "continents": "Континенты",
+  "continentsList": {
+    "All": "Все континенты",
+    "Africa": "Африка",
+    "Antarctica": "Антарктида",
+    "Asia": "Азия",
+    "Europe": "Европа",
+    "North America": "Северная Америка",
+    "South America": "Южная Америка",
+    "Oceania": "Океания"
+  },
+  "population": "Население",
+  "from": "От",
+  "to": "До",
+  "applyFilters": "Применить фильтры"
 }

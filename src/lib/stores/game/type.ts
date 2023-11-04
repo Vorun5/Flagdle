@@ -24,13 +24,19 @@ export type GameStoreState = {
   mysteriousCountry: Country | null
   gameStatus: 'playing' | 'winner' | 'idle'
   startTime: number
-  endTime: number
   filters: GameFiltersType
   lastAnswer: null | {
     status: 'right' | 'wrong'
     answer: Country
     correctAnswer: Country
   }
+  lastResult: {
+    countryIds: number[]
+    guessedСountryIds: number[]
+    unguessedСountryIds: number[]
+    startTime: number
+    endTime: number
+  } | null
 }
 
 export type GameStoreActions = {
