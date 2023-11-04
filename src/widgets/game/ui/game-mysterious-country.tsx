@@ -1,4 +1,4 @@
-import { useGameStore } from 'lib/stores/game'
+import { useGameStore } from 'lib/stores/game/game'
 
 export const GameMysteriousCountry = () => {
   const { mysteriousCountry } = useGameStore()

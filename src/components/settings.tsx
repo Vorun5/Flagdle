@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IconButton } from './icon-button'
 import { Modal } from './modal/modal'
 import { Select } from './select'
-import { useGameStore } from 'lib/stores/game'
+import { useGameStore } from 'lib/stores/game/game'
 import { ALL_COUNTRY_LANGUAGES, CountryLanguages } from 'lib/types'
 import { useTranslation } from 'react-i18next'
 

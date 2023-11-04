@@ -1,5 +1,5 @@
 import { convertTime } from 'lib/helpers/convert-time'
-import { useGameStore } from 'lib/stores/game'
+import { useGameStore } from 'lib/stores/game/game'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 

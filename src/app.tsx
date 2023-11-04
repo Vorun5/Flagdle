@@ -1,9 +1,8 @@
+import { useGameStore } from 'lib/stores/game/game'
 import { Header } from 'widgets/header'
 import { Footer } from 'widgets/footer'
 import { Game } from 'widgets/game'
-import { GameResult } from 'widgets/game-result'
-import { GameStart } from 'widgets/game-start'
-import { useGameStore } from 'lib/stores/game'
+import { GameInfo } from 'widgets/game-info'
 
 export const App = () => {
   const { gameStatus } = useGameStore()
@@ -11,11 +10,7 @@ export const App = () => {
   return (
     <div className="app-container">
       <Header />
-      <main className="content">
-        {gameStatus === 'idle' && <GameStart />}
-        {gameStatus === 'playing' && <Game />}
-        {gameStatus === 'winner' && <GameResult />}
-      </main>
+      <main className="content">{gameStatus === 'playing' ? <Game /> : <GameInfo />}</main>
       <Footer />
     </div>
   )

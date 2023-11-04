@@ -1,16 +1,15 @@
-import { COUNTRIES_LENGTH } from 'lib/consts/countries'
-import { useGameStore } from 'lib/stores/game'
+import { useGameStore } from 'lib/stores/game/game'
 import { useTranslation } from 'react-i18next'
 
 export const GameScore = () => {
   const { t } = useTranslation()
-  const { guessedСountryIds: guessedCountries } = useGameStore()
+  const { guessedСountryIds, countryIds } = useGameStore()
 
   return (
     <span className="game__info">
       {t('score')}:{' '}
       <b>
-        {guessedCountries.length} {t('outOf')} {COUNTRIES_LENGTH}
+        {guessedСountryIds.length} {t('outOf')} {countryIds.length}
       </b>
     </span>
   )

@@ -42,7 +42,26 @@ export type CountryContinent =
   | 'Europe'
   | 'Antarctica'
 
+export const ALL_COUNTRY_CONTINENTS: CountryContinent[] = [
+  'Africa',
+  'Antarctica',
+  'Asia',
+  'Europe',
+  'North America',
+  'Oceania',
+  'South America',
+]
+
 export type CountryRegion = 'Americas' | 'Africa' | 'Asia' | 'Oceania' | 'Europe' | 'Antarctic'
+
+export const ALL_COUNTRY_REGIONS: CountryRegion[] = [
+  'Africa',
+  'Americas',
+  'Antarctic',
+  'Asia',
+  'Europe',
+  'Oceania',
+]
 
 export type Country = {
   id: number

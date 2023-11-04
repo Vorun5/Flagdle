@@ -57,6 +57,10 @@
   border-radius: 6px;
 }
 
+.field[type='number'] {
+  letter-spacing: 1px;
+}
+
 .field:focus {
   outline: 2px solid var(--accent-color);
 }

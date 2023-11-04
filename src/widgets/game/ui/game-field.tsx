@@ -1,6 +1,6 @@
 import { Icons } from 'components/icons'
 import { useKeydown } from 'lib/hooks/use-keydown'
-import { useGameStore } from 'lib/stores/game'
+import { useGameStore } from 'lib/stores/game/game'
 import { useEffect, useState } from 'react'
 
 export const GameField = () => {

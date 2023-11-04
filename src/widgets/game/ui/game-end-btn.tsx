@@ -1,6 +1,6 @@
 import { IconButton } from 'components/icon-button'
 import { Modal } from 'components/modal/modal'
-import { useGameStore } from 'lib/stores/game'
+import { useGameStore } from 'lib/stores/game/game'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 

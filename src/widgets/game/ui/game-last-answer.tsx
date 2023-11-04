@@ -1,5 +1,5 @@
 import { Icons } from 'components/icons'
-import { useGameStore } from 'lib/stores/game'
+import { useGameStore } from 'lib/stores/game/game'
 import { Country } from 'lib/types'
 import { useTranslation } from 'react-i18next'
 
