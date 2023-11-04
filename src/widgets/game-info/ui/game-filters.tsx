@@ -2,10 +2,14 @@ import { ALL_COUNTRY_CONTINENTS } from 'lib/types'
 import { useGameStore, GameFiltersType, MAX_POPULATION, MIN_POPULATION } from 'lib/stores/game'
 import { useEffect, useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { COUNTRIES } from 'lib/consts/countries'
+import { filterCountriesById } from 'lib/helpers/filter-countries-by-Id'
+import { CountryCard } from 'components/country-card'
 
 export const GameFilters = () => {
   const { t } = useTranslation()
   const [localFilters, setLocalFilters] = useState<GameFiltersType | null>(null)
+  const [showCountriesList, setShowCountriesList] = useState(false)
   const { filters, changeFilters, countryIds, startGame } = useGameStore()
   const fromId = useId()
   const toId = useId()
@@ -16,11 +20,11 @@ export const GameFilters = () => {
 
   if (localFilters === null) return <></>
 
+  const countries = filterCountriesById(COUNTRIES, countryIds)
+
   return (
     <div className="game-filters">
-      <h2 className="game-filters__title">
-        {t('filters')} ({countryIds.length})
-      </h2>
+      <h2 className="game-filters__title">{t('filters')}</h2>
       <h4 className="game-filters__subtitle">{t('continents')}</h4>
       <div className="continents-filter">
         <button
@@ -113,9 +117,39 @@ export const GameFilters = () => {
         >
           {t('applyFilters')}
         </button>
-        <button className="button action-btn" onClick={startGame}>
+      </div>
+      <div className="countries">
+        <span className="countries__title">
+          {t('numberOfEligibleCountries')}: <b style={{ fontWeight: '500' }}>{countryIds.length}</b>{' '}
+          {countryIds.length !== 0 && (
+            <span
+              className="countries__show"
+              onClick={() => setShowCountriesList(!showCountriesList)}
+            >
+              [{showCountriesList ? t('hide') : t('show')}]
+            </span>
+          )}
+          {countryIds.length === 0 && (
+            <>
+              <br />
+              <span className="countries__warning">{t('impossibleToStartTheGame')}</span>
+            </>
+          )}
+        </span>
+        <button
+          disabled={countryIds.length === 0}
+          className="button action-btn"
+          onClick={startGame}
+        >
           {t('startTheGame')}
         </button>
+        {showCountriesList && (
+          <div className="countries__list">
+            {countries.map((country) => (
+              <CountryCard key={country.id} country={country} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

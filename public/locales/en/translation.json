@@ -44,5 +44,9 @@
   "population": "Population",
   "from": "From",
   "to": "To",
-  "applyFilters": "Apply filters"
+  "applyFilters": "Apply filters",
+  "show": "show",
+  "hide": "hide",
+  "numberOfEligibleCountries": "Number of eligible countries",
+  "impossibleToStartTheGame": "Therefore it is impossible to start the game!"
 }

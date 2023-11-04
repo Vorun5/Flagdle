@@ -44,5 +44,9 @@
   "population": "Население",
   "from": "От",
   "to": "До",
-  "applyFilters": "Применить фильтры"
+  "applyFilters": "Применить фильтры",
+  "show": "показать",
+  "hide": "скрыть",
+  "numberOfEligibleCountries": "Количество стран удовлетворяющие критериям",
+  "impossibleToStartTheGame": "Поэтому невозможно начать игру!"
 }

@@ -1,4 +1,5 @@
 import { Icons } from 'components/icons'
+import { formatPopulationNumber } from 'lib/helpers/format-population-number'
 import { useGameStore } from 'lib/stores/game/game'
 import { Country } from 'lib/types'
 import { useTranslation } from 'react-i18next'
@@ -17,7 +18,7 @@ const GameLastAnswerCountry = ({ country }: { country: Country }) => {
             return continent + end
           })}
         </span>
-        <span className="country__population">{country.population}</span>
+        <span className="country__population">{formatPopulationNumber(country.population)}</span>
         <a className="country__link" href={country.link} target="_blank" rel="noopener noreferrer">
           Google Maps <Icons width="16px" height="16px" icon="external-link" />
         </a>

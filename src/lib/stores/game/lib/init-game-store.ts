@@ -1,5 +1,5 @@
 import { ALL_COUNTRY_LANGUAGES, CountryLanguages } from 'lib/types'
-import { GameStoreState } from '../type'
+import { GameStoreState, MAX_POPULATION } from '../type'
 import { getCountryNames } from './get-country-names'
 import { COUNTRIES_IDS } from 'lib/consts/countries'
 
@@ -33,7 +33,7 @@ export const initGameStore = (): GameStoreState => {
     filters: {
       population: {
         from: 0,
-        to: 10_000_000_000,
+        to: MAX_POPULATION,
       },
       continents: [],
     },
