@@ -64,6 +64,10 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
     if (newPopulation.to > MAX_POPULATION) newPopulation.to = MAX_POPULATION
 
     set((state) => {
+      if (JSON.stringify(filters) === JSON.stringify(state.filters)) {
+        return state
+      }
+
       if (state.gameStatus === 'playing') return state
       const newCountryIds: number[] = []
       for (const country of COUNTRIES) {

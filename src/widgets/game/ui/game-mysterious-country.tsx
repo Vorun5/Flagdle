@@ -10,7 +10,7 @@ export const GameMysteriousCountry = () => {
       src={`./flags/${mysteriousCountry.id}.svg`}
       alt="Mysterious flag"
       draggable={false}
-      className="flag"
+      className="game__flag"
     />
   )
 }

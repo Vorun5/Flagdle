@@ -8,7 +8,7 @@ import '../game.css'
 
 export const Game = () => {
   return (
-    <section className="box">
+    <section className="box game">
       <div className="game__header">
         <div>
           <GameStopwatch />

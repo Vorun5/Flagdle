@@ -1,3 +1,9 @@
+.game__flag {
+  display: block;
+  width: 260px;
+  margin: 0 auto;
+}
+
 .game__header {
   width: 100%;
   display: flex;
@@ -103,22 +109,22 @@
   background-color: var(--action-color);
 }
 
-.answer {
+.last-answer {
   font-size: 1.2rem;
   display: block;
   color: var(--text-color);
   margin-bottom: 5px;
 }
 
-.answer__right {
+.last-answer__right {
   color: var(--success-color);
 }
 
-.answer__wrong {
+.last-answer__wrong {
   color: var(--danger-color);
 }
 
-.country {
+.last-answer-country {
   text-align: center;
   position: relative;
   cursor: pointer;
@@ -126,15 +132,15 @@
   transition: color 0.3s;
 }
 
-.country:hover {
+.last-answer-country:hover {
   color: var(--hover-accent-color);
 }
 
-.country:hover .country__flag {
+.last-answer-country:hover .country__flag {
   display: block;
 }
 
-.country__flag {
+.last-answer-country__flag {
   z-index: 2;
   position: absolute;
   top: 25px;
@@ -144,29 +150,29 @@
 }
 
 @media (min-width: 600px) {
-  .country__flag {
+  .last-answer-country__flag {
     left: -25px;
     width: 180px;
   }
 }
 
-.country__flag img {
+.last-answer-country__flag img {
   width: 100%;
 }
 
-.country__continents {
+.last-answer-country__continents {
   color: var(--text-color);
   font-size: 1rem;
 }
 
-.country__population {
+.last-answer-country__population {
   display: block;
   margin: 0.3rem 0;
   color: var(--text-color);
   font-size: 1rem;
 }
 
-.country__link {
+.last-answer-country__link {
   display: flex;
   align-items: center;
   gap: 0.2rem;
@@ -208,4 +214,19 @@
 
 .clue--active:hover {
   box-shadow: 0 0 0 2px var(--hover-accent-color);
+}
+
+@media (pointer: fine) and (max-width: 500px) {
+  .game__flag {
+    height: 110px;
+    width: auto;
+  }
+
+  .last-answer__container {
+    min-height: 6.5rem;
+  }
+
+  .last-answer {
+    font-size: 1.1rem;
+  }
 }

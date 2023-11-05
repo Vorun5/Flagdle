@@ -1,10 +1,10 @@
 import { ALL_COUNTRY_CONTINENTS } from 'lib/types'
 import { useGameStore, GameFiltersType, MAX_POPULATION, MIN_POPULATION } from 'lib/stores/game'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { COUNTRIES } from 'lib/consts/countries'
 import { filterCountriesById } from 'lib/helpers/filter-countries-by-Id'
-import { CountryCard } from 'components/country-card'
+import { CountryList } from 'components/country-list'
 
 export const GameFilters = () => {
   const { t } = useTranslation()
@@ -18,9 +18,9 @@ export const GameFilters = () => {
     setLocalFilters(filters)
   }, [filters])
 
-  if (localFilters === null) return <></>
+  const countries = useMemo(() => filterCountriesById(COUNTRIES, countryIds), [countryIds])
 
-  const countries = filterCountriesById(COUNTRIES, countryIds)
+  if (localFilters === null) return <></>
 
   return (
     <div className="game-filters">
@@ -143,13 +143,7 @@ export const GameFilters = () => {
         >
           {t('startTheGame')}
         </button>
-        {showCountriesList && (
-          <div className="countries__list">
-            {countries.map((country) => (
-              <CountryCard key={country.id} country={country} />
-            ))}
-          </div>
-        )}
+        {showCountriesList && <CountryList countries={countries} />}
       </div>
     </div>
   )
