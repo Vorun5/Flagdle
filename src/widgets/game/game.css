@@ -1,7 +1,7 @@
 .game__flag {
   display: block;
-  width: 260px;
   margin: 0 auto;
+  height: 110px;
 }
 
 .game__header {
@@ -109,8 +109,12 @@
   background-color: var(--action-color);
 }
 
+.last-answer__container {
+  min-height: 6.5rem;
+}
+
 .last-answer {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: block;
   color: var(--text-color);
   margin-bottom: 5px;
@@ -216,17 +220,17 @@
   box-shadow: 0 0 0 2px var(--hover-accent-color);
 }
 
-@media (pointer: fine) and (max-width: 500px) {
+@media (min-width: 500px) {
   .game__flag {
-    height: 110px;
-    width: auto;
+    height: auto;
+    width: 260px;
   }
 
   .last-answer__container {
-    min-height: 6.5rem;
+    min-height: auto;
   }
 
   .last-answer {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 }
