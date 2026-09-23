@@ -1,4 +1,5 @@
 import { COUNTRIES_BY_ID } from 'lib/consts/countries'
+import { getCountryTranslation } from 'lib/consts/country-translations'
 import { CountryLanguages } from 'lib/types'
 
 export const getCountryNames = ({
@@ -13,8 +14,9 @@ export const getCountryNames = ({
   for (const countryId of countryIds) {
     const country = COUNTRIES_BY_ID.get(countryId)
     if (country) {
-      commonCountryNames.push(country.translations[language].common)
-      officialCountryNames.push(country.translations[language].official)
+      const translation = getCountryTranslation(country, language)
+      commonCountryNames.push(translation.common)
+      officialCountryNames.push(translation.official)
     }
   }
   commonCountryNames.sort()

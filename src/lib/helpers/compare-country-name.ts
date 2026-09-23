@@ -1,4 +1,5 @@
 import { Country, CountryLanguages } from 'lib/types'
+import { getCountryTranslation } from 'lib/consts/country-translations'
 
 export const compareCountryName = ({
   country,
@@ -8,8 +9,12 @@ export const compareCountryName = ({
   country: Country
   language: CountryLanguages
   name: string
-}) =>
-  country.translations[language].common.trim().toLocaleLowerCase() ===
-    name.trim().toLocaleLowerCase() ||
-  country.translations[language].official.trim().toLocaleLowerCase() ===
-    name.trim().toLocaleLowerCase()
+}) => {
+  const translation = getCountryTranslation(country, language)
+  const normalizedName = name.trim().toLocaleLowerCase()
+
+  return (
+    translation.common.trim().toLocaleLowerCase() === normalizedName ||
+    translation.official.trim().toLocaleLowerCase() === normalizedName
+  )
+}

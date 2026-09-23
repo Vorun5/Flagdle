@@ -1,62 +1,29 @@
-import { Icons } from 'components/icons'
-import { formatPopulationNumber } from 'lib/helpers/format-population-number'
+import { getCountryTranslation } from 'lib/consts/country-translations'
 import { useGameStore } from 'lib/stores/game/game'
-import { Country } from 'lib/types'
 import { useTranslation } from 'react-i18next'
-
-const GameLastAnswerCountry = ({ country }: { country: Country }) => {
-  const { language } = useGameStore()
-
-  return (
-    <span className="last-answer-country" tabIndex={0}>
-      {country.translations[language].common}
-      <span className="last-answer-country__flag">
-        <img src={`./flags/${country.id}.svg`} alt={country.translations[language].common} />
-        <span className="country__continents">
-          {country.continents.map((continent, index) => {
-            const end = country.continents.length != index + 1 ? ', ' : ''
-            return continent + end
-          })}
-        </span>
-        <span className="last-answer-country__population">
-          {formatPopulationNumber(country.population)}
-        </span>
-        <a
-          className="last-answer-country__link"
-          href={country.link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Google Maps <Icons width="16px" height="16px" icon="external-link" />
-        </a>
-      </span>
-    </span>
-  )
-}
 
 export const GameLastAnswer = () => {
   const { t } = useTranslation()
-  const { lastAnswer } = useGameStore()
+  const { language, lastAnswer } = useGameStore()
 
-  if (!lastAnswer) return <></>
+  if (!lastAnswer) return null
+
+  const correctName = getCountryTranslation(lastAnswer.correctAnswer, language).common
+  const answerName = getCountryTranslation(lastAnswer.answer, language).common
 
   return (
-    <div className="last-answer__container" aria-live="polite">
-      <div className="last-answer">
-        {t('lastAnswer')}:{' '}
-        <span
-          className={lastAnswer.status === 'right' ? 'last-answer__right' : 'last-answer__wrong'}
-        >
-          {lastAnswer.status === 'right' ? t('guessedRight') : t('didntGuess')}
-        </span>
-      </div>
-      <div className="last-answer">
-        {t('yourAnswer')}: <GameLastAnswerCountry country={lastAnswer.answer} />
-      </div>
+    <div
+      className={`game-feedback game-feedback--${lastAnswer.status}`}
+      role="status"
+      aria-live="polite"
+    >
+      <strong>
+        {lastAnswer.status === 'right'
+          ? t('feedback.correct', { country: correctName })
+          : t('feedback.wrong', { country: correctName })}
+      </strong>
       {lastAnswer.status === 'wrong' && (
-        <div className="last-answer">
-          {t('correctAnswer')}: <GameLastAnswerCountry country={lastAnswer.correctAnswer} />
-        </div>
+        <span>{t('feedback.yourAnswer', { country: answerName })}</span>
       )}
     </div>
   )

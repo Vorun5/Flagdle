@@ -1,4 +1,6 @@
 export { useGameStore } from '../src/lib/stores/game/game'
-export { initGameStore } from '../src/lib/stores/game/lib/init-game-store'
+export { initGameStore, getSavedGameLanguage } from '../src/lib/stores/game/lib/init-game-store'
+export { chooseRoundCountries } from '../src/lib/stores/game/lib/choose-round-countries'
+export { getCountryTranslation } from '../src/lib/consts/country-translations'
 export { convertTime } from '../src/lib/helpers/convert-time'
 export { COUNTRIES } from '../src/lib/consts/countries'

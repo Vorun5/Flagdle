@@ -1,4 +1,3 @@
-import { Icons } from 'components/icons'
 import { useGameStore } from 'lib/stores/game/game'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -59,6 +58,7 @@ export const GameField = () => {
           }
         }}
         aria-label={t('countryName')}
+        placeholder={t('typeCountryName')}
         autoComplete="off"
         className="game__field field"
       />
@@ -66,9 +66,9 @@ export const GameField = () => {
         type="submit"
         disabled={!canEnter}
         aria-label={t('submitAnswer')}
-        className={`game__field-btn ${canEnter ? '' : 'game__field-btn--disable'}`}
+        className="button action-btn game__field-btn"
       >
-        <Icons icon="arrow-r" width="20px" height="20px" color="white" />
+        {t('submitAnswer')}
       </button>
       {showClues && (
         <ul className="clues">

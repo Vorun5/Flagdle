@@ -3,20 +3,18 @@ import { Icons } from './icons'
 import { useGameStore } from 'lib/stores/game'
 import { formatPopulationNumber } from 'lib/helpers/format-population-number'
 import { useTranslation } from 'react-i18next'
+import { getCountryTranslation } from 'lib/consts/country-translations'
 
 export const CountryCard = ({ country }: { country: Country }) => {
   const { t } = useTranslation()
   const { language } = useGameStore()
+  const countryName = getCountryTranslation(country, language).common
 
   return (
     <div className="country-card">
-      <img
-        className="country-card__img"
-        src={`./flags/${country.id}.svg`}
-        alt={country.translations[language].common}
-      />
+      <img className="country-card__img" src={`./flags/${country.id}.svg`} alt={countryName} />
       <div className="country-card__info">
-        <h3 className="country-card__name">{country.translations[language].common}</h3>
+        <h3 className="country-card__name">{countryName}</h3>
         <h4 className="country-card__population">
           {t('population')}: {formatPopulationNumber(country.population)}
         </h4>

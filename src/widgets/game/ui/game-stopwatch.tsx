@@ -24,16 +24,16 @@ export const GameStopwatch = () => {
   const time = convertTime(stopwatch)
 
   return (
-    <span className="game__info">
-      {t('time')}:{' '}
-      <b>
+    <div className="game__time">
+      <span>{t('time')}</span>
+      <strong>
         {time.minutes !== 0 && (
           <>
             {time.minutes} {t('minutes')}{' '}
           </>
         )}
         {time.seconds} {t('seconds')}
-      </b>
-    </span>
+      </strong>
+    </div>
   )
 }
