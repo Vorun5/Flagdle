@@ -22,14 +22,14 @@
 
     "types": ["vite-plugin-svgr/client"],
 
-    "baseUrl": "src",
     "paths": {
-      "components/*": ["components/*"],
-      "hooks/*": ["hooks/*"],
-      "styles/*": ["styles/*"],
-      "assets/*": ["assets/*"],
-      "widgets/*": ["widgets/*"],
-      "pages/*": ["pages/*"]
+      "lib/*": ["./src/lib/*"],
+      "components/*": ["./src/components/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "styles/*": ["./src/styles/*"],
+      "assets/*": ["./src/assets/*"],
+      "widgets/*": ["./src/widgets/*"],
+      "pages/*": ["./src/pages/*"]
     }
   },
   "include": ["src"],

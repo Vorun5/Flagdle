@@ -10,7 +10,6 @@ export const GameStopwatch = () => {
   const [stopwatch, setStopwatch] = useState(0)
   useEffect(() => {
     if (!(gameStatus === 'playing')) return
-    setStopwatch(0)
     const interval = setInterval(() => {
       const nowDate = new Date()
       setStopwatch(nowDate.getTime() - startTime)
