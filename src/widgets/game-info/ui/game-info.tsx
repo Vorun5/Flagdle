@@ -8,10 +8,13 @@ export const GameInfo = () => {
   const { gameStatus } = useGameStore()
 
   return (
-    <section className="box game-info">
-      {(gameStatus === 'winner' || gameStatus === 'finished') && <GameResult />}
-      <GameStart />
-      <GameFilters />
+    <section className="box">
+      <div className="game-info">
+        {gameStatus === 'idle' && <GameStart />}
+        {(gameStatus === 'winner' || gameStatus === 'finished') && <GameResult />}
+        <div className="game-info__divider" />
+        <GameFilters />
+      </div>
     </section>
   )
 }

@@ -1,116 +1,153 @@
-import { CountryList } from 'components/country-list'
+import { ALL_COUNTRY_CONTINENTS } from 'lib/types'
+import { useGameStore, GameFiltersType, MAX_POPULATION, MIN_POPULATION } from 'lib/stores/game'
+import { useEffect, useId, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { COUNTRIES } from 'lib/consts/countries'
 import { filterCountriesById } from 'lib/helpers/filter-countries-by-Id'
-import { useGameStore } from 'lib/stores/game'
-import { MAX_POPULATION, MIN_POPULATION } from 'lib/stores/game/type'
-import { ALL_COUNTRY_CONTINENTS } from 'lib/types'
-import { useId, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { CountryList } from 'components/country-list'
 
 export const GameFilters = () => {
   const { t } = useTranslation()
-  const { filters, changeFilters, countryIds } = useGameStore()
-  const [fromInput, setFromInput] = useState(String(filters.population.from))
-  const [toInput, setToInput] = useState(String(filters.population.to))
+  const [localFilters, setLocalFilters] = useState<GameFiltersType | null>(null)
+  const [showCountriesList, setShowCountriesList] = useState(false)
+  const { filters, changeFilters, countryIds, startGame } = useGameStore()
   const fromId = useId()
   const toId = useId()
+
+  useEffect(() => {
+    setLocalFilters(filters)
+  }, [filters])
+
   const countries = useMemo(() => filterCountriesById(COUNTRIES, countryIds), [countryIds])
 
-  const changePopulation = (from: string, to: string) => {
-    changeFilters({
-      ...filters,
-      population: { from: Number(from || 0), to: Number(to || 0) },
-    })
-  }
-
-  const normalizeInputs = () => {
-    const population = useGameStore.getState().filters.population
-    setFromInput(String(population.from))
-    setToInput(String(population.to))
-  }
+  if (localFilters === null) return <></>
 
   return (
-    <details className="game-filters">
-      <summary className="game-filters__summary">
-        <span>{t('customizeCountries')}</span>
-        <span>{t('eligibleCountries', { count: countryIds.length })}</span>
-      </summary>
-      <div className="game-filters__body">
-        <fieldset className="game-filters__group">
-          <legend>{t('continents')}</legend>
-          <div className="continents-filter">
+    <div className="game-filters">
+      <h2 className="game-filters__title">{t('filters')}</h2>
+      <h4 className="game-filters__subtitle">{t('continents')}</h4>
+      <div className="continents-filter">
+        <button
+          className={`continents-filter__item ${
+            localFilters.continents.length === 0 ? 'continents-filter__item--active' : ''
+          }`}
+          onClick={() =>
+            setLocalFilters({
+              ...localFilters,
+              continents: [],
+            })
+          }
+        >
+          {t('continentsList.All')}
+        </button>
+        {ALL_COUNTRY_CONTINENTS.map(continent => (
+          <button
+            key={continent}
+            className={`continents-filter__item ${
+              localFilters.continents.includes(continent) ? 'continents-filter__item--active' : ''
+            }`}
+            onClick={() => {
+              setLocalFilters({
+                ...localFilters,
+                continents: localFilters.continents.includes(continent)
+                  ? localFilters.continents.filter(c => c !== continent)
+                  : [...localFilters.continents, continent],
+              })
+            }}
+          >
+            {t(`continentsList.${continent}`)}
+          </button>
+        ))}
+      </div>
+      <h4 className="game-filters__subtitle">{t('population')}</h4>
+      <div className="population-filter">
+        <div className="population-field__container">
+          <label className="population-field__label" htmlFor={fromId}>
+            {t('from')}
+          </label>
+          <input
+            className="field"
+            id={fromId}
+            type="number"
+            value={localFilters.population.from}
+            min={MIN_POPULATION}
+            max={MAX_POPULATION}
+            onChange={event => {
+              const from = event.target.value ? Number(event.target.value) : 0
+              setLocalFilters({
+                ...localFilters,
+                population: {
+                  ...localFilters.population,
+                  from,
+                },
+              })
+            }}
+          />
+        </div>
+        <div className="population-field__container">
+          <label className="population-field__label" htmlFor={toId}>
+            {t('to')}
+          </label>
+          <input
+            className="field"
+            id={toId}
+            type="number"
+            value={localFilters.population.to}
+            min={MIN_POPULATION}
+            max={MAX_POPULATION}
+            onChange={event => {
+              const to = event.target.value ? Number(event.target.value) : 0
+              setLocalFilters({
+                ...localFilters,
+                population: {
+                  ...localFilters.population,
+                  to,
+                },
+              })
+            }}
+          />
+        </div>
+      </div>
+      <div className="game-filters__actions">
+        <button
+          className="button action-btn"
+          onClick={() => {
+            changeFilters(localFilters)
+            setLocalFilters(useGameStore.getState().filters)
+          }}
+        >
+          {t('applyFilters')}
+        </button>
+      </div>
+      <div className="countries">
+        <span className="countries__title">
+          {t('numberOfEligibleCountries')}: <b style={{ fontWeight: '500' }}>{countryIds.length}</b>{' '}
+          {countryIds.length !== 0 && (
             <button
               type="button"
-              className="continents-filter__item"
-              aria-pressed={filters.continents.length === 0}
-              onClick={() => changeFilters({ ...filters, continents: [] })}
+              className="countries__show"
+              aria-expanded={showCountriesList}
+              onClick={() => setShowCountriesList(!showCountriesList)}
             >
-              {t('continentsList.All')}
+              [{showCountriesList ? t('hide') : t('show')}]
             </button>
-            {ALL_COUNTRY_CONTINENTS.map(continent => (
-              <button
-                key={continent}
-                type="button"
-                className="continents-filter__item"
-                aria-pressed={filters.continents.includes(continent)}
-                onClick={() =>
-                  changeFilters({
-                    ...filters,
-                    continents: filters.continents.includes(continent)
-                      ? filters.continents.filter(value => value !== continent)
-                      : [...filters.continents, continent],
-                  })
-                }
-              >
-                {t(`continentsList.${continent}`)}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-        <fieldset className="game-filters__group">
-          <legend>{t('population')}</legend>
-          <div className="population-filter">
-            <div>
-              <label htmlFor={fromId}>{t('from')}</label>
-              <input
-                id={fromId}
-                type="number"
-                inputMode="numeric"
-                min={MIN_POPULATION}
-                max={MAX_POPULATION}
-                value={fromInput}
-                onChange={event => {
-                  setFromInput(event.target.value)
-                  changePopulation(event.target.value, toInput)
-                }}
-                onBlur={normalizeInputs}
-              />
-            </div>
-            <div>
-              <label htmlFor={toId}>{t('to')}</label>
-              <input
-                id={toId}
-                type="number"
-                inputMode="numeric"
-                min={MIN_POPULATION}
-                max={MAX_POPULATION}
-                value={toInput}
-                onChange={event => {
-                  setToInput(event.target.value)
-                  changePopulation(fromInput, event.target.value)
-                }}
-                onBlur={normalizeInputs}
-              />
-            </div>
-          </div>
-        </fieldset>
-        {countryIds.length > 0 && (
-          <details className="eligible-list">
-            <summary>{t('showEligibleCountries')}</summary>
-            <CountryList countries={countries} />
-          </details>
-        )}
+          )}
+          {countryIds.length === 0 && (
+            <>
+              <br />
+              <span className="countries__warning">{t('impossibleToStartTheGame')}</span>
+            </>
+          )}
+        </span>
+        <button
+          disabled={countryIds.length === 0}
+          className="button action-btn"
+          onClick={startGame}
+        >
+          {t('startTheGame')}
+        </button>
+        {showCountriesList && <CountryList countries={countries} />}
       </div>
-    </details>
+    </div>
   )
 }

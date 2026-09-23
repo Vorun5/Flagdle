@@ -1,4 +1,6 @@
-export const ALL_COUNTRY_LANGUAGES = [
+export type CountryLanguages = keyof Country['translations']
+
+export const ALL_COUNTRY_LANGUAGES: CountryLanguages[] = [
   'ara',
   'bre',
   'ces',
@@ -24,9 +26,7 @@ export const ALL_COUNTRY_LANGUAGES = [
   'tur',
   'urd',
   'zho',
-] as const
-
-export type CountryLanguages = (typeof ALL_COUNTRY_LANGUAGES)[number]
+]
 
 export type CountryTranslation = {
   common: string
@@ -73,5 +73,31 @@ export type Country = {
   flag: {
     url: string
   }
-  translations: { eng: CountryTranslation }
+  translations: {
+    eng: CountryTranslation
+    ara: CountryTranslation
+    bre: CountryTranslation
+    ces: CountryTranslation
+    cym: CountryTranslation
+    deu: CountryTranslation
+    est: CountryTranslation
+    fin: CountryTranslation
+    fra: CountryTranslation
+    hrv: CountryTranslation
+    hun: CountryTranslation
+    ita: CountryTranslation
+    jpn: CountryTranslation
+    kor: CountryTranslation
+    nld: CountryTranslation
+    per: CountryTranslation
+    pol: CountryTranslation
+    rus: CountryTranslation
+    slk: CountryTranslation
+    spa: CountryTranslation
+    srp: CountryTranslation
+    swe: CountryTranslation
+    tur: CountryTranslation
+    urd: CountryTranslation
+    zho: CountryTranslation
+  }
 }

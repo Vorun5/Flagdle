@@ -13,11 +13,9 @@ i18n
   // pass the i18n instance to react-i18next.
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
-    supportedLngs: ['en', 'ru'],
-    load: 'languageOnly',
+    fallbackLng: 'en', // если переводы на языке пользователя недоступны, то будет использоваться язык, указанный в этом поле
     interpolation: {
-      escapeValue: false,
+      escapeValue: false, // экранирование уже есть в React, поэтому отключаем
     },
   })
 

@@ -14,12 +14,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-transition-group": "^4.4.12",
     "i18next": "^26.4.2",
     "i18next-browser-languagedetector": "^8.2.1",
     "i18next-http-backend": "^4.0.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-i18next": "^17.0.15",
+    "react-transition-group": "^4.4.5",
     "vite-plugin-svgr": "^5.2.0",
     "zustand": "^5.0.15"
   },

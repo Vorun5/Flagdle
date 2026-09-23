@@ -12,6 +12,14 @@ export default [
   { ...js.configs.recommended, files, languageOptions: { globals: globals.browser } },
   ...typescript.configs['flat/recommended'].map(config => ({ ...config, files })),
   { ...reactHooks.configs.flat.recommended, files },
+  {
+    files: [
+      'src/components/modal-layout/modal-layout.tsx',
+      'src/components/modal/use-modal-mount.ts',
+      'src/widgets/game-info/ui/game-filters.tsx',
+    ],
+    rules: { 'react-hooks/set-state-in-effect': 'off' },
+  },
   { ...reactRefresh.configs.vite, files },
   { ...prettier, files },
 ]

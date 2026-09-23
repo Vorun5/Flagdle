@@ -1,5 +1,4 @@
-import { GameLanguageSwitcher } from 'components/game-language-switcher'
-import { SiteLanguageSwitcher } from 'components/site-language-switcher'
+import { Settings } from 'components/settings'
 import { ThemeSwitcher } from 'components/theme-switcher'
 import './header.css'
 
@@ -7,10 +6,9 @@ export const Header = () => {
   return (
     <header className="header">
       <h1 className="logo__title">Flagdle</h1>
-      <GameLanguageSwitcher />
-      <div className="header__actions">
+      <div className="header__settings">
         <ThemeSwitcher />
-        <SiteLanguageSwitcher />
+        <Settings />
       </div>
     </header>
   )

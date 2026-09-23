@@ -1,37 +1,26 @@
-import { ReactNode, useEffect, useRef } from 'react'
-import { createPortal } from 'react-dom'
-import './modal.css'
+import { ReactNode, memo } from 'react'
+import { Portal } from 'components/portal'
+import { useModalMount } from './use-modal-mount'
+import { ModalLayout } from 'components/modal-layout/modal-layout'
 
 type ModalProps = {
   opened: boolean
   onClose: () => void
-  label: string
   children: ReactNode
 }
 
-export const Modal = ({ opened, onClose, label, children }: ModalProps) => {
-  const dialogRef = useRef<HTMLDialogElement>(null)
+export const Modal = memo(({ opened, onClose, children }: ModalProps) => {
+  const { mounted } = useModalMount({ opened })
 
-  useEffect(() => {
-    const dialog = dialogRef.current
-    if (!dialog) return
+  if (!mounted) {
+    return null
+  }
 
-    if (opened && !dialog.open) dialog.showModal()
-    if (!opened && dialog.open) dialog.close()
-  }, [opened])
-
-  return createPortal(
-    <dialog
-      ref={dialogRef}
-      className="modal"
-      aria-label={label}
-      onClose={onClose}
-      onClick={event => {
-        if (event.target === dialogRef.current) onClose()
-      }}
-    >
-      <div className="modal__content">{children}</div>
-    </dialog>,
-    document.body,
+  return (
+    <Portal>
+      <ModalLayout onClose={onClose} opened={opened}>
+        {children}
+      </ModalLayout>
+    </Portal>
   )
-}
+})

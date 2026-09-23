@@ -1,14 +1,10 @@
 import { COUNTRIES } from 'lib/consts/countries'
-import { loadCountryLanguage } from 'lib/consts/country-translations'
 import { compareCountryName } from 'lib/helpers/compare-country-name'
 import { create } from 'zustand'
 import { GameStoreActions, GameStoreState, MAX_POPULATION, MIN_POPULATION } from './type'
 import { initGameStore } from './lib/init-game-store'
 import { guessCountry } from './lib/guess-country'
 import { getCountryNames } from './lib/get-country-names'
-import { chooseRoundCountries } from './lib/choose-round-countries'
-
-let languageRequest = 0
 
 export const useGameStore = create<GameStoreState & GameStoreActions>(set => ({
   ...initGameStore(),
@@ -16,15 +12,12 @@ export const useGameStore = create<GameStoreState & GameStoreActions>(set => ({
     set(state => {
       if (state.gameStatus === 'playing' || state.countryIds.length === 0) return state
 
-      const roundCountryIds = chooseRoundCountries(state.countryIds, state.roundSize)
-
       return {
-        roundCountryIds,
-        unguessedСountryIds: [...roundCountryIds],
+        unguessedСountryIds: [...state.countryIds],
         gameStatus: 'playing',
         startTime: Date.now(),
         guessedСountryIds: [],
-        mysteriousCountry: guessCountry(roundCountryIds),
+        mysteriousCountry: guessCountry(state.countryIds),
         lastAnswer: null,
         lastResult: null,
       }
@@ -41,36 +34,27 @@ export const useGameStore = create<GameStoreState & GameStoreActions>(set => ({
         lastResult: {
           startTime: state.startTime,
           endTime: Date.now(),
-          countryIds: [...state.roundCountryIds],
+          countryIds: [...state.countryIds],
           guessedСountryIds: [...state.guessedСountryIds],
           unguessedСountryIds: [...state.unguessedСountryIds],
         },
       }
     })
   },
-  changeGameLanguage: async language => {
-    const request = ++languageRequest
-    set({ languageLoading: true, languageError: false })
-
-    try {
-      await loadCountryLanguage(language)
-    } catch {
-      if (request === languageRequest) set({ languageLoading: false, languageError: true })
-      return
-    }
-
-    if (request !== languageRequest) return
+  changeGameLanguage: language => {
     localStorage.setItem('game-language', language)
     set(state => {
       const { countryNames, countryNamesInLowerCase } = getCountryNames({
         language,
         countryIds: state.countryIds,
       })
-      return { language, languageLoading: false, countryNames, countryNamesInLowerCase }
+
+      return {
+        language,
+        countryNames,
+        countryNamesInLowerCase,
+      }
     })
-  },
-  changeRoundSize: size => {
-    set(state => (state.gameStatus === 'playing' ? state : { roundSize: size }))
   },
   changeFilters: filters => {
     const clampPopulation = (value: number) =>
@@ -140,16 +124,16 @@ export const useGameStore = create<GameStoreState & GameStoreActions>(set => ({
           const endTime = Date.now()
           return {
             unguessedСountryIds: [],
-            guessedСountryIds: [...state.roundCountryIds],
+            guessedСountryIds: [...state.countryIds],
             gameStatus: 'winner',
             mysteriousCountry: null,
             lastAnswer: null,
             lastResult: {
               startTime: state.startTime,
               endTime,
-              countryIds: [...state.roundCountryIds],
+              countryIds: [...state.countryIds],
               unguessedСountryIds: [],
-              guessedСountryIds: [...state.roundCountryIds],
+              guessedСountryIds: [...state.countryIds],
             },
           }
         }
@@ -176,7 +160,7 @@ export const useGameStore = create<GameStoreState & GameStoreActions>(set => ({
       if (!userAnswer) return state
 
       return {
-        mysteriousCountry: guessCountry(state.unguessedСountryIds, state.mysteriousCountry.id),
+        mysteriousCountry: guessCountry(state.unguessedСountryIds),
         lastAnswer: {
           status: 'wrong',
           answer: userAnswer,
