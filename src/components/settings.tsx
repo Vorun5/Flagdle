@@ -52,25 +52,25 @@ export const Settings = () => {
 
   return (
     <>
-      <IconButton icon="settings" onClick={() => setOpened(true)} />
+      <IconButton icon="settings" aria-label={t('settings')} onClick={() => setOpened(true)} />
       <Modal opened={opened} onClose={() => setOpened(false)}>
         <section className="settings">
           <div className="settings__header">
             <h2 className="settings__title">{t('settings')}</h2>
-            <IconButton icon="close" onClick={() => setOpened(false)} />
+            <IconButton icon="close" aria-label={t('close')} onClick={() => setOpened(false)} />
           </div>
           <div className="settings__content">
             <span className="settings__subtitle">{t('siteLanguage')}</span>
             <Select
               selectedValue={i18n.language}
-              onSelect={(lang) => i18n.changeLanguage(lang)}
+              onSelect={lang => i18n.changeLanguage(lang)}
               options={siteLanguages}
             />
             <span className="settings__subtitle">{t('gameLanguage')}</span>
             <Select
               selectedValue={language}
-              onSelect={(lang) => changeGameLanguage(lang as CountryLanguages)}
-              options={ALL_COUNTRY_LANGUAGES.map((lang) => ({
+              onSelect={lang => changeGameLanguage(lang as CountryLanguages)}
+              options={ALL_COUNTRY_LANGUAGES.map(lang => ({
                 value: lang,
                 label: gameLanguages[lang],
               }))}

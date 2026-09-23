@@ -11,7 +11,7 @@ export const GameInfo = () => {
     <section className="box">
       <div className="game-info">
         {gameStatus === 'idle' && <GameStart />}
-        {gameStatus === 'winner' && <GameResult />}
+        {(gameStatus === 'winner' || gameStatus === 'finished') && <GameResult />}
         <div className="game-info__divider" />
         <GameFilters />
       </div>

@@ -40,7 +40,7 @@ export const GameFilters = () => {
         >
           {t('continentsList.All')}
         </button>
-        {ALL_COUNTRY_CONTINENTS.map((continent) => (
+        {ALL_COUNTRY_CONTINENTS.map(continent => (
           <button
             key={continent}
             className={`continents-filter__item ${
@@ -50,7 +50,7 @@ export const GameFilters = () => {
               setLocalFilters({
                 ...localFilters,
                 continents: localFilters.continents.includes(continent)
-                  ? localFilters.continents.filter((c) => c !== continent)
+                  ? localFilters.continents.filter(c => c !== continent)
                   : [...localFilters.continents, continent],
               })
             }}
@@ -72,7 +72,7 @@ export const GameFilters = () => {
             value={localFilters.population.from}
             min={MIN_POPULATION}
             max={MAX_POPULATION}
-            onChange={(event) => {
+            onChange={event => {
               const from = event.target.value ? Number(event.target.value) : 0
               setLocalFilters({
                 ...localFilters,
@@ -95,7 +95,7 @@ export const GameFilters = () => {
             value={localFilters.population.to}
             min={MIN_POPULATION}
             max={MAX_POPULATION}
-            onChange={(event) => {
+            onChange={event => {
               const to = event.target.value ? Number(event.target.value) : 0
               setLocalFilters({
                 ...localFilters,
@@ -113,6 +113,7 @@ export const GameFilters = () => {
           className="button action-btn"
           onClick={() => {
             changeFilters(localFilters)
+            setLocalFilters(useGameStore.getState().filters)
           }}
         >
           {t('applyFilters')}
@@ -122,12 +123,14 @@ export const GameFilters = () => {
         <span className="countries__title">
           {t('numberOfEligibleCountries')}: <b style={{ fontWeight: '500' }}>{countryIds.length}</b>{' '}
           {countryIds.length !== 0 && (
-            <span
+            <button
+              type="button"
               className="countries__show"
+              aria-expanded={showCountriesList}
               onClick={() => setShowCountriesList(!showCountriesList)}
             >
               [{showCountriesList ? t('hide') : t('show')}]
-            </span>
+            </button>
           )}
           {countryIds.length === 0 && (
             <>

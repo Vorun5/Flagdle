@@ -1,6 +1,8 @@
 export const convertTime = (time: number) => {
+  const totalSeconds = Math.floor(Math.max(0, time) / 1000)
+
   return {
-    minutes: Math.floor(time / 1000 / 60),
-    seconds: Math.round((time / 1000) % 60),
+    minutes: Math.floor(totalSeconds / 60),
+    seconds: totalSeconds % 60,
   }
 }

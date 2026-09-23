@@ -5,7 +5,7 @@ import { memo } from 'react'
 export const CountryList = memo(function CountryList({ countries }: { countries: Country[] }) {
   return (
     <ul className="country-list">
-      {countries.map((country) => (
+      {countries.map(country => (
         <li key={country.id}>
           <CountryCard country={country} />
         </li>

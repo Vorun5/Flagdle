@@ -22,7 +22,7 @@ export type GameStoreState = {
   unguessedСountryIds: number[]
   countryIds: number[]
   mysteriousCountry: Country | null
-  gameStatus: 'playing' | 'winner' | 'idle'
+  gameStatus: 'playing' | 'winner' | 'finished' | 'idle'
   startTime: number
   filters: GameFiltersType
   lastAnswer: null | {
@@ -44,5 +44,5 @@ export type GameStoreActions = {
   endGame: () => void
   changeGameLanguage: (language: CountryLanguages) => void
   changeFilters: (filters: GameFiltersType) => void
-  enterCountryName: (countryName: string, language: CountryLanguages) => void
+  enterCountryName: (countryName: string) => void
 }

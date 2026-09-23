@@ -1,5 +1,8 @@
 {
   "settings": "Настройки",
+  "close": "Закрыть",
+  "switchToLightTheme": "Включить светлую тему",
+  "switchToDarkTheme": "Включить тёмную тему",
   "gameLanguage": "Язык игры",
   "siteLanguage": "Язык сайта",
   "rulesOfTheGame": "Правила игры",
@@ -9,6 +12,8 @@
     "studyFlags": "Изучать флаги!✍"
   },
   "startTheGame": "Начать игру!",
+  "countryName": "Название страны",
+  "submitAnswer": "Ответить",
   "time": "Время",
   "score": "Счет",
   "outOf": "из",

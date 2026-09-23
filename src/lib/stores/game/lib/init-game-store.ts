@@ -4,24 +4,20 @@ import { getCountryNames } from './get-country-names'
 import { COUNTRIES_IDS } from 'lib/consts/countries'
 
 export const initGameStore = (): GameStoreState => {
-  let language = localStorage.getItem('game-language')
-  if (language !== null) {
-    try {
-      ALL_COUNTRY_LANGUAGES.includes(language as CountryLanguages)
-    } catch {
-      language = 'eng'
-    }
-  } else {
-    language = 'eng'
-  }
+  const savedLanguage = localStorage.getItem('game-language')
+  const language: CountryLanguages = ALL_COUNTRY_LANGUAGES.includes(
+    savedLanguage as CountryLanguages,
+  )
+    ? (savedLanguage as CountryLanguages)
+    : 'eng'
 
   const { countryNames, countryNamesInLowerCase } = getCountryNames({
-    language: language as CountryLanguages,
+    language,
     countryIds: COUNTRIES_IDS,
   })
 
   return {
-    language: language as CountryLanguages,
+    language,
     countryNames,
     countryNamesInLowerCase,
     guessedСountryIds: [],

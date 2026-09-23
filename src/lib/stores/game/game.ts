@@ -6,38 +6,44 @@ import { initGameStore } from './lib/init-game-store'
 import { guessCountry } from './lib/guess-country'
 import { getCountryNames } from './lib/get-country-names'
 
-export const useGameStore = create<GameStoreState & GameStoreActions>((set) => ({
+export const useGameStore = create<GameStoreState & GameStoreActions>(set => ({
   ...initGameStore(),
   startGame: () => {
-    set((state) => {
+    set(state => {
+      if (state.gameStatus === 'playing' || state.countryIds.length === 0) return state
+
       return {
-        unguessedСountryIds: state.countryIds,
+        unguessedСountryIds: [...state.countryIds],
         gameStatus: 'playing',
-        startTime: new Date().getTime(),
+        startTime: Date.now(),
         guessedСountryIds: [],
         mysteriousCountry: guessCountry(state.countryIds),
         lastAnswer: null,
+        lastResult: null,
       }
     })
   },
   endGame: () => {
-    set((state) => {
+    set(state => {
+      if (state.gameStatus !== 'playing') return state
+
       return {
-        gameStatus: 'winner',
+        gameStatus: 'finished',
+        mysteriousCountry: null,
         lastAnswer: null,
         lastResult: {
           startTime: state.startTime,
-          endTime: new Date().getTime(),
-          countryIds: state.countryIds,
-          guessedСountryIds: state.guessedСountryIds,
-          unguessedСountryIds: state.unguessedСountryIds,
+          endTime: Date.now(),
+          countryIds: [...state.countryIds],
+          guessedСountryIds: [...state.guessedСountryIds],
+          unguessedСountryIds: [...state.unguessedСountryIds],
         },
       }
     })
   },
-  changeGameLanguage: (language) => {
+  changeGameLanguage: language => {
     localStorage.setItem('game-language', language)
-    set((state) => {
+    set(state => {
       const { countryNames, countryNamesInLowerCase } = getCountryNames({
         language,
         countryIds: state.countryIds,
@@ -50,32 +56,34 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
       }
     })
   },
-  changeFilters: (filters) => {
-    const newPopulation = filters.population
-    if (newPopulation.from > newPopulation.to) {
-      const from = newPopulation.to
-      const to = newPopulation.from
-      newPopulation.from = from
-      newPopulation.to = to
-    }
-    if (newPopulation.from < MIN_POPULATION) newPopulation.from = MIN_POPULATION
-    if (newPopulation.to < MIN_POPULATION) newPopulation.to = MIN_POPULATION
-    if (newPopulation.from > MAX_POPULATION) newPopulation.from = MAX_POPULATION
-    if (newPopulation.to > MAX_POPULATION) newPopulation.to = MAX_POPULATION
+  changeFilters: filters => {
+    const clampPopulation = (value: number) =>
+      Number.isFinite(value)
+        ? Math.min(MAX_POPULATION, Math.max(MIN_POPULATION, Math.trunc(value)))
+        : MIN_POPULATION
+    const from = clampPopulation(filters.population.from)
+    const to = clampPopulation(filters.population.to)
+    const newPopulation = { from: Math.min(from, to), to: Math.max(from, to) }
+    const continents = [...filters.continents]
 
-    set((state) => {
-      if (JSON.stringify(filters) === JSON.stringify(state.filters)) {
+    set(state => {
+      if (state.gameStatus === 'playing') return state
+      if (
+        newPopulation.from === state.filters.population.from &&
+        newPopulation.to === state.filters.population.to &&
+        continents.length === state.filters.continents.length &&
+        continents.every((continent, index) => continent === state.filters.continents[index])
+      ) {
         return state
       }
 
-      if (state.gameStatus === 'playing') return state
       const newCountryIds: number[] = []
       for (const country of COUNTRIES) {
         if (
           country.population >= newPopulation.from &&
           country.population <= newPopulation.to &&
-          (filters.continents.length === 0 ||
-            country.continents.some((continent) => filters.continents.includes(continent)))
+          (continents.length === 0 ||
+            country.continents.some(continent => continents.includes(continent)))
         ) {
           newCountryIds.push(country.id)
         }
@@ -90,17 +98,16 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
         countryNamesInLowerCase,
         countryIds: newCountryIds,
         filters: {
-          continents: filters.continents,
+          continents,
           population: newPopulation,
         },
       }
     })
   },
-  enterCountryName: (countryName) =>
-    set((state) => {
-      if (!state.mysteriousCountry) {
-        throw new Error('Imposible: enterCountryName. mysteriousCountry cant be null')
-      }
+  enterCountryName: countryName =>
+    set(state => {
+      if (state.gameStatus !== 'playing' || !state.mysteriousCountry) return state
+
       if (
         compareCountryName({
           country: state.mysteriousCountry,
@@ -109,21 +116,22 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
         })
       ) {
         const newUnguessedСountryIds = state.unguessedСountryIds.filter(
-          (id) => id !== state.mysteriousCountry?.id,
+          id => id !== state.mysteriousCountry?.id,
         )
         const gameStatus = newUnguessedСountryIds.length !== 0 ? 'playing' : 'winner'
 
         if (gameStatus === 'winner') {
+          const endTime = Date.now()
           return {
             unguessedСountryIds: [],
             guessedСountryIds: [...state.countryIds],
             gameStatus: 'winner',
-            endTime: new Date().getTime(),
+            mysteriousCountry: null,
             lastAnswer: null,
             lastResult: {
               startTime: state.startTime,
-              endTime: new Date().getTime(),
-              countryIds: state.countryIds,
+              endTime,
+              countryIds: [...state.countryIds],
               unguessedСountryIds: [],
               guessedСountryIds: [...state.countryIds],
             },
@@ -133,7 +141,7 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
         return {
           unguessedСountryIds: newUnguessedСountryIds,
           guessedСountryIds: [...state.guessedСountryIds, state.mysteriousCountry.id],
-          gameStatus: gameStatus,
+          gameStatus,
           mysteriousCountry: guessCountry(newUnguessedСountryIds),
           lastAnswer: {
             status: 'right',
@@ -143,25 +151,21 @@ export const useGameStore = create<GameStoreState & GameStoreActions>((set) => (
         }
       }
 
-      const userAnswer = COUNTRIES.find((country) =>
-        compareCountryName({ country, name: countryName, language: state.language }),
+      const userAnswer = COUNTRIES.find(
+        country =>
+          state.countryIds.includes(country.id) &&
+          compareCountryName({ country, name: countryName, language: state.language }),
       )
 
-      if (!userAnswer) {
-        throw new Error('Imposible: enterCountryName. userAnswer cant be undefinde')
-      }
+      if (!userAnswer) return state
 
-      if (state.mysteriousCountry) {
-        return {
-          mysteriousCountry: guessCountry(state.unguessedСountryIds),
-          lastAnswer: {
-            status: 'wrong',
-            answer: userAnswer,
-            correctAnswer: state.mysteriousCountry,
-          },
-        }
+      return {
+        mysteriousCountry: guessCountry(state.unguessedСountryIds),
+        lastAnswer: {
+          status: 'wrong',
+          answer: userAnswer,
+          correctAnswer: state.mysteriousCountry,
+        },
       }
-
-      return state
     }),
 }))

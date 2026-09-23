@@ -1,107 +1,90 @@
 import { Icons } from 'components/icons'
-import { useKeydown } from 'lib/hooks/use-keydown'
 import { useGameStore } from 'lib/stores/game/game'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export const GameField = () => {
-  const { language, countryNames, countryNamesInLowerCase, enterCountryName } = useGameStore()
-
+  const { t } = useTranslation()
+  const { countryNames, countryNamesInLowerCase, enterCountryName } = useGameStore()
   const inputRef = useRef<HTMLInputElement>(null)
-
   const [input, setInput] = useState('')
-  const [selectedClue, setSelectedClue] = useState(-1)
+  const [selectedClue, setSelectedClue] = useState(0)
 
-  const [canEnter, setCanEnter] = useState(false)
-  const [clue, setClue] = useState<string[]>([])
+  const processedInput = input.trim().toLowerCase()
+  const canEnter = processedInput.length > 0 && countryNamesInLowerCase.includes(processedInput)
+  const clues = processedInput
+    ? countryNames.filter((_, index) => countryNamesInLowerCase[index].includes(processedInput))
+    : []
+  const showClues = !canEnter && clues.length > 0
 
-  useEffect(() => {
-    const newClue: string[] = []
-    const processedInput = input.trim().toLowerCase()
-    if (processedInput.length !== 0) {
-      setCanEnter(countryNamesInLowerCase.includes(processedInput))
-      countryNamesInLowerCase.forEach((lowerCaseName, index) => {
-        if (lowerCaseName.includes(processedInput)) {
-          newClue.push(countryNames[index])
-        }
-      })
-    }
-    setClue(newClue)
-    setSelectedClue(newClue.length !== 0 ? 0 : -1)
-  }, [input, countryNamesInLowerCase, countryNames])
-
-  const localEnterCountryName = () => {
-    if (!canEnter || input.trim().length === 0) {
-      setCanEnter(false)
-      return
-    }
-    enterCountryName(input, language)
-    setInput('')
+  const selectClue = (name: string) => {
+    setInput(name)
+    setSelectedClue(0)
+    inputRef.current?.focus()
   }
 
-  useKeydown('Enter', () => {
-    if (!canEnter && clue.length !== 0) {
-      setInput(clue[selectedClue])
-      return
-    }
-    localEnterCountryName()
-  })
-
-  useKeydown('Tab', (event) => {
-    if (clue.length == 0) return
-    event.preventDefault()
-    const newSelectedClue = selectedClue + 1
-    setSelectedClue(newSelectedClue >= clue.length ? 0 : newSelectedClue)
-  })
-
-  useKeydown('ArrowUp', (event) => {
-    if (clue.length == 0) return
-    event.preventDefault()
-    const newSelectedClue = selectedClue - 1
-    setSelectedClue(newSelectedClue < 0 ? clue.length - 1 : newSelectedClue)
-  })
-
-  useKeydown('ArrowDown', (event) => {
-    if (clue.length == 0) return
-    event.preventDefault()
-    const newSelectedClue = selectedClue + 1
-    setSelectedClue(newSelectedClue >= clue.length ? 0 : newSelectedClue)
-  })
-
   return (
-    <div className="game__field-container">
+    <form
+      className="game__field-container"
+      onSubmit={event => {
+        event.preventDefault()
+        if (canEnter) {
+          enterCountryName(input)
+          setInput('')
+          setSelectedClue(0)
+        } else if (showClues) {
+          selectClue(clues[Math.min(selectedClue, clues.length - 1)])
+        }
+      }}
+    >
       <input
         ref={inputRef}
         type="text"
         value={input}
-        onChange={(event) => {
+        onChange={event => {
           setInput(event.target.value)
+          setSelectedClue(0)
         }}
+        onKeyDown={event => {
+          if (!showClues) return
+          if (event.key === 'Enter') {
+            event.preventDefault()
+            selectClue(clues[Math.min(selectedClue, clues.length - 1)])
+          } else if (event.key === 'ArrowDown') {
+            event.preventDefault()
+            setSelectedClue(index => (index + 1) % clues.length)
+          } else if (event.key === 'ArrowUp') {
+            event.preventDefault()
+            setSelectedClue(index => (index - 1 + clues.length) % clues.length)
+          }
+        }}
+        aria-label={t('countryName')}
+        autoComplete="off"
         className="game__field field"
       />
-      <div
+      <button
+        type="submit"
+        disabled={!canEnter}
+        aria-label={t('submitAnswer')}
         className={`game__field-btn ${canEnter ? '' : 'game__field-btn--disable'}`}
-        onClick={localEnterCountryName}
       >
         <Icons icon="arrow-r" width="20px" height="20px" color="white" />
-      </div>
-      {!canEnter && (
-        <div className="clues">
-          {clue.map((coutnryName, index) => (
-            <span
-              key={coutnryName}
-              className={`clue ${selectedClue === index ? 'clue--active' : ''}`}
-              onClick={() => {
-                setInput(coutnryName)
-                if (inputRef.current) {
-                  inputRef.current.focus()
-                }
-              }}
-            >
-              {coutnryName}
-            </span>
+      </button>
+      {showClues && (
+        <ul className="clues">
+          {clues.map((countryName, index) => (
+            <li key={countryName}>
+              <button
+                type="button"
+                className={`clue ${selectedClue === index ? 'clue--active' : ''}`}
+                onClick={() => selectClue(countryName)}
+              >
+                {countryName}
+              </button>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
-    </div>
+    </form>
   )
 }

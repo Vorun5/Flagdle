@@ -8,9 +8,9 @@ const GameLastAnswerCountry = ({ country }: { country: Country }) => {
   const { language } = useGameStore()
 
   return (
-    <span className="last-answer-country">
+    <span className="last-answer-country" tabIndex={0}>
       {country.translations[language].common}
-      <div className="last-answer-country__flag">
+      <span className="last-answer-country__flag">
         <img src={`./flags/${country.id}.svg`} alt={country.translations[language].common} />
         <span className="country__continents">
           {country.continents.map((continent, index) => {
@@ -29,7 +29,7 @@ const GameLastAnswerCountry = ({ country }: { country: Country }) => {
         >
           Google Maps <Icons width="16px" height="16px" icon="external-link" />
         </a>
-      </div>
+      </span>
     </span>
   )
 }
@@ -41,22 +41,22 @@ export const GameLastAnswer = () => {
   if (!lastAnswer) return <></>
 
   return (
-    <div className="last-answer__container">
-      <span className="last-answer">
+    <div className="last-answer__container" aria-live="polite">
+      <div className="last-answer">
         {t('lastAnswer')}:{' '}
         <span
           className={lastAnswer.status === 'right' ? 'last-answer__right' : 'last-answer__wrong'}
         >
           {lastAnswer.status === 'right' ? t('guessedRight') : t('didntGuess')}
         </span>
-      </span>
-      <span className="last-answer">
+      </div>
+      <div className="last-answer">
         {t('yourAnswer')}: <GameLastAnswerCountry country={lastAnswer.answer} />
-      </span>
+      </div>
       {lastAnswer.status === 'wrong' && (
-        <span className="last-answer">
+        <div className="last-answer">
           {t('correctAnswer')}: <GameLastAnswerCountry country={lastAnswer.correctAnswer} />
-        </span>
+        </div>
       )}
     </div>
   )

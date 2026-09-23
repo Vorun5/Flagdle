@@ -11,8 +11,12 @@ export const GameEndBtn = () => {
 
   return (
     <>
-      <IconButton icon="close" onClick={() => setOpened(true)} />
-      <Modal opened={opened} onClose={() => setOpened(!opened)}>
+      <IconButton
+        icon="close"
+        aria-label={t('finishTheGame.yes')}
+        onClick={() => setOpened(true)}
+      />
+      <Modal opened={opened} onClose={() => setOpened(false)}>
         <div className="game-end-modal">
           <span className="game-end-modal__title">{t('finishTheGame.title')}</span>
           <span className="game-end-modal__description">{t('finishTheGame.description')}</span>

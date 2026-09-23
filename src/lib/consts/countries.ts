@@ -13275,6 +13275,6 @@ export const COUNTRIES: Country[] = [
   },
 ]
 
-export const COUNTRIES_LENGTH = COUNTRIES.length
+export const COUNTRIES_IDS = COUNTRIES.map(country => country.id)
 
-export const COUNTRIES_IDS = Array.from({ length: COUNTRIES.length }, (_, index) => index + 1)
+export const COUNTRIES_BY_ID = new Map(COUNTRIES.map(country => [country.id, country]))

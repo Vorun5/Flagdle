@@ -17,12 +17,12 @@ export const Select = ({ selectedValue, options, onSelect, ...props }: SelectPro
       <select
         value={selectedValue}
         className="select__field"
-        onChange={(event) => {
+        onChange={event => {
           onSelect(event.target.value)
         }}
         {...props}
       >
-        {options.map((option) => (
+        {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>

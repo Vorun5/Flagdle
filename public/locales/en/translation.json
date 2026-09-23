@@ -1,5 +1,8 @@
 {
   "settings": "Settings",
+  "close": "Close",
+  "switchToLightTheme": "Switch to light theme",
+  "switchToDarkTheme": "Switch to dark theme",
   "gameLanguage": "Game language",
   "siteLanguage": "Site language",
   "rulesOfTheGame": "Rules of the game",
@@ -9,6 +12,8 @@
     "studyFlags": "Study flags!✍"
   },
   "startTheGame": "Start the game!",
+  "countryName": "Country name",
+  "submitAnswer": "Submit answer",
   "time": "Time",
   "score": "Score",
   "outOf": "out of",
